@@ -1,0 +1,21 @@
+header{
+    background-color: #F282A1;
+    color : white;
+    /*height : 30vh;*/
+    min-height: 150px;
+}
+
+.container-bouton{
+    margin-top : 2em;
+}
+
+.logo{
+    width : 18%;
+    max-width : 120px;
+
+}
+
+.container-bouton img{
+    width:23%;
+    max-width:200px;
+}
