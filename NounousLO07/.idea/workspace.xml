@@ -17,8 +17,27 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="127">
               <caret line="21" selection-start-line="21" selection-end-line="21" />
+=======
+<<<<<<< HEAD
+            <state relative-caret-position="435">
+              <caret line="29" column="88" selection-start-line="29" selection-start-column="88" selection-end-line="29" selection-end-column="88" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="session.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/php/session.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+=======
+            <state relative-caret-position="227">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+>>>>>>> 1df250ffc9dfe3a431bedb03c18bf674b40ce57c
+>>>>>>> 98c702bec8eb45d2c1bed59e1d6b5e1fa3038532
             </state>
           </provider>
         </entry>
@@ -28,15 +47,27 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
               <caret line="17" selection-start-line="17" selection-end-line="17" />
+<<<<<<< HEAD
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="inscriptionNounou.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/php/login.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
+=======
+>>>>>>> 1df250ffc9dfe3a431bedb03c18bf674b40ce57c
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="inscriptionNounou.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/html/inscriptionNounou.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+            <state relative-caret-position="75">
+              <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -44,7 +75,11 @@
       <file leaf-file-name="inscriptionParent.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/html/inscriptionParent.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="2040">
+=======
             <state relative-caret-position="572">
+>>>>>>> 1df250ffc9dfe3a431bedb03c18bf674b40ce57c
               <caret line="136" column="69" selection-start-line="136" selection-start-column="69" selection-end-line="136" selection-end-column="69" />
             </state>
           </provider>
@@ -96,6 +131,7 @@
         <option value="$PROJECT_DIR$/php/login.php" />
         <option value="$PROJECT_DIR$/php/session.php" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/html/inscriptionNounou.php" />
       </list>
     </option>
   </component>
@@ -113,7 +149,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="99" />
-    <option name="y" value="22" />
+    <option name="y" value="23" />
     <option name="width" value="1088" />
     <option name="height" value="774" />
   </component>
@@ -129,21 +165,27 @@
             <path>
               <item name="NounousLO07" type="b2602c69:ProjectViewProjectNode" />
               <item name="NounousLO07" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
             </path>
             <path>
               <item name="NounousLO07" type="b2602c69:ProjectViewProjectNode" />
               <item name="NounousLO07" type="462c0819:PsiDirectoryNode" />
               <item name="css" type="462c0819:PsiDirectoryNode" />
+=======
+>>>>>>> 98c702bec8eb45d2c1bed59e1d6b5e1fa3038532
             </path>
             <path>
               <item name="NounousLO07" type="b2602c69:ProjectViewProjectNode" />
               <item name="NounousLO07" type="462c0819:PsiDirectoryNode" />
               <item name="html" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
             </path>
             <path>
               <item name="NounousLO07" type="b2602c69:ProjectViewProjectNode" />
               <item name="NounousLO07" type="462c0819:PsiDirectoryNode" />
               <item name="php" type="462c0819:PsiDirectoryNode" />
+=======
+>>>>>>> 98c702bec8eb45d2c1bed59e1d6b5e1fa3038532
             </path>
           </expand>
           <select />
@@ -202,15 +244,31 @@
       <workItem from="1526296864356" duration="6278000" />
       <workItem from="1526384676512" duration="4888000" />
       <workItem from="1527067003004" duration="675000" />
+<<<<<<< HEAD
       <workItem from="1527068880633" duration="747000" />
+=======
+<<<<<<< HEAD
+      <workItem from="1527069870171" duration="61000" />
+=======
+      <workItem from="1527068880633" duration="40000" />
+>>>>>>> 1df250ffc9dfe3a431bedb03c18bf674b40ce57c
+>>>>>>> 98c702bec8eb45d2c1bed59e1d6b5e1fa3038532
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="13037000" />
+=======
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="12477000" />
+=======
+    <option name="totallyTimeSpent" value="12456000" />
+>>>>>>> 1df250ffc9dfe3a431bedb03c18bf674b40ce57c
+>>>>>>> 98c702bec8eb45d2c1bed59e1d6b5e1fa3038532
   </component>
   <component name="ToolWindowManager">
-    <frame x="99" y="22" width="1088" height="774" extended-state="0" />
+    <frame x="99" y="23" width="1088" height="774" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.19119026" />
@@ -226,8 +284,18 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+<<<<<<< HEAD
       <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.19117647" />
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
+=======
+<<<<<<< HEAD
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+=======
+>>>>>>> 98c702bec8eb45d2c1bed59e1d6b5e1fa3038532
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -240,8 +308,12 @@
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="1" side_tool="true" />
+=======
+>>>>>>> 1df250ffc9dfe3a431bedb03c18bf674b40ce57c
+>>>>>>> 98c702bec8eb45d2c1bed59e1d6b5e1fa3038532
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -572,17 +644,30 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/php/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> 98c702bec8eb45d2c1bed59e1d6b5e1fa3038532
     <entry file="file://$PROJECT_DIR$/php/session.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+<<<<<<< HEAD
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/html/inscriptionNounou.php">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        <state relative-caret-position="435">
+          <caret line="29" column="88" selection-start-line="29" selection-start-column="88" selection-end-line="29" selection-end-column="88" />
+=======
+>>>>>>> 1df250ffc9dfe3a431bedb03c18bf674b40ce57c
         </state>
       </provider>
     </entry>
@@ -595,11 +680,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/html/inscriptionParent.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="2040">
+=======
         <state relative-caret-position="572">
+>>>>>>> 1df250ffc9dfe3a431bedb03c18bf674b40ce57c
           <caret line="136" column="69" selection-start-line="136" selection-start-column="69" selection-end-line="136" selection-end-column="69" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -618,6 +708,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+=======
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/html/inscriptionNounou.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+=======
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+>>>>>>> 1df250ffc9dfe3a431bedb03c18bf674b40ce57c
+>>>>>>> 98c702bec8eb45d2c1bed59e1d6b5e1fa3038532
         </state>
       </provider>
     </entry>
