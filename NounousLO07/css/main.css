@@ -19,3 +19,11 @@ header{
     width:23%;
     max-width:200px;
 }
+
+.hidden{
+    visibility : hidden;
+}
+
+.visible{
+    visibility: visible;
+}
