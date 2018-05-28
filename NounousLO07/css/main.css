@@ -33,11 +33,6 @@ header{
 .container-bouton img{
     width:23%;
     max-width:200px;
-<<<<<<< HEAD
-    margin-right: 20px;
-}
-
-=======
 }
 
 .hidden{
@@ -47,4 +42,4 @@ header{
 .visible{
     display : block;
 }
->>>>>>> da6430d2ab5d07a612fd705cd37ff43fb1a0c67b
+
