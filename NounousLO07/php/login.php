@@ -25,7 +25,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             header("location : tableaunounou.php");
         }
         else{
-            header("location: welcome.php");
+            header("location: tableauparent.php");
         }
 
 
