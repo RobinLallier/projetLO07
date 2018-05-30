@@ -65,7 +65,7 @@ include '../php/config.php';
                 $resultat2 = mysqli_query($bdd, $requete2);
 
                 if ($resultat2) {
-                    $nbrnounous = mysqli_num_rows($resultat2);
+                    $nbrnounous = mysqli_fetch_rows($resultat2);
                     echo("Vous avez ". $nbrnounous . " nounous inscrites sur la plateforme");
                 } else{
                     echo ("Aucune nounou n'est encore inscrite sur la plateforme");
