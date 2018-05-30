@@ -13,12 +13,15 @@ else(printf("<li><h2>PAS DE mot de passe FOURNI</h2></li>"));
 if( isset($_POST["login"]) && isset($_POST["password"])) {
     printf("<h2>rentré dans la boucle</h2>");
     $login = $_POST["login"];
+    printf($login);
     $password = $_POST["password"];
+    printf($password);
     //Hachage du mot de passe
     //$password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-    if( mysqli_query($bdd, "SELECT * FROM UTILISATEURS WHERE mdp=$password AND login=$login; ")){
-        if(mysqli_query($bdd, "SELECT admin FROM UTILISATEURS WHERE mdp=$password AND login=$login; ") === "1") {
+    if( mysqli_query($bdd, "SELECT * FROM UTILISATEURS WHERE mdp=\"$password\" AND login=\"$login\"; ")){
+        printf("rentré ici");
+        if(mysqli_query($bdd, "SELECT admin FROM UTILISATEURS WHERE mdp=\"$password\" AND login=\"$login\"; ") === "1") {
             echo("<h1> Cette personne est un admin</h1>");
         }
         else{
@@ -29,11 +32,7 @@ if( isset($_POST["login"]) && isset($_POST["password"])) {
 
 
 
-}
-else{
-    echo("ne fonctionne pas");
-}
 
-
+}
 
 ?>
