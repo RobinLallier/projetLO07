@@ -2,7 +2,6 @@
 <?php
 include '../php/config.php';
 ?>
-?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -46,7 +45,7 @@ include '../php/config.php';
 
                 <?php
 
-                $requete1 = "SELECT COUNT(*) FROM NOUNOU WHERE candidature=1;";
+                $requete1 = "SELECT * FROM NOUNOU WHERE candidature=1;";
                 $resultat1 = mysqli_query($bdd, $requete1);
 
                 if ($resultat1) {
@@ -61,11 +60,11 @@ include '../php/config.php';
 
                 <?php
 
-                $requete2 = "SELECT COUNT(*) FROM NOUNOU WHERE candidature=0;";
+                $requete2 = "SELECT * FROM NOUNOU WHERE candidature=0;";
                 $resultat2 = mysqli_query($bdd, $requete2);
 
                 if ($resultat2) {
-                    $nbrnounous = mysqli_fetch_rows($resultat2);
+                    $nbrnounous = mysqli_num_rows($resultat2);
                     echo("Vous avez ". $nbrnounous . " nounous inscrites sur la plateforme");
                 } else{
                     echo ("Aucune nounou n'est encore inscrite sur la plateforme");
