@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-include '../php/php_class/config.php';
+include '../php/config.php';
 ?>
 ?>
 <html lang="en">
@@ -45,14 +45,13 @@ include '../php/php_class/config.php';
             <article>
 
                 <?php
-                include '../php/php_class/config.php';
 
                 $requete = "SELECT COUNT(*) FROM NOUNOU WHERE candidature=1;";
                 $resultat = mysqli_query($bdd, $requete);
 
                 if ($resultat) {
                     $candidatures = mysqli_num_rows($resultat);
-                    echo("Vous avez ". $candidatures . "candidatures de nounous");
+                    echo("Vous avez ". $candidatures . " candidature(s) de nounous");
                 } else{
                     echo ("Il n'y a aucune candidature actuellement");
                 }
