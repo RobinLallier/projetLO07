@@ -30,12 +30,12 @@
         <form method="post" action="connexion.php">
             <div class="form-group">
                 <label for="login">Login</label>
-                <input type="text" class="form-control" id="login" placeholder="Votre login">
+                <input type="text" class="form-control" name="login" placeholder="Votre login">
 
             </div>
             <div class="form-group">
                 <label for="password">Mot de Passe</label>
-                <input type="password" class="form-control" id="password" placeholder="Votre mot de passe">
+                <input type="password" class="form-control" name="password" placeholder="Votre mot de passe">
                 <small id="emailHelp" class="form-text text-muted">Votre mot de passe restera confidentiel.</small>
             </div>
 
