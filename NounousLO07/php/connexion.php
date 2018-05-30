@@ -7,11 +7,11 @@ else(printf("<li><h2>PAS DE LOGIN FOURNI</h2></li>"));
 if(isset($_POST["password"]) && ($_POST["password"] != "")) printf("<li><b>mot de passe</b> = %s</li>", $_POST["password"]);
 else(printf("<li><h2>PAS DE mot de passe FOURNI</h2></li>"));
 ?>
-
+</ul>
 <?php
 //Vérification de la validité des informations entrées
 if( isset($_POST["login"]) && isset($_POST["password"])) {
-
+    printf("<h2>rentré dans la boucle</h2>");
     $login = $_POST["login"];
     $password = $_POST["password"];
     //Hachage du mot de passe
@@ -30,4 +30,10 @@ if( isset($_POST["login"]) && isset($_POST["password"])) {
 
 
 }
+else{
+    echo("ne fonctionne pas");
+}
+
+
+
 ?>
