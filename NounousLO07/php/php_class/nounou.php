@@ -6,7 +6,7 @@
  * Time: 12:47
  */
 
-class nounou
+class Nounou
 {
     private $nom;
     private $prenom;
@@ -43,8 +43,17 @@ class nounou
         $this->description = $description;
     }
 
-    public function __addToDatabase(){
+    public function toSQLString($idUser){
+        $string = "(idNounou, lien_photo, age, annee_experience, presentation) 
+        VALUES ($idUser, '".$this->getPhoto()."', '".$this->getAge()."', '".$this->getExperience()
+        ."', '".$this->getDescription()."')";
 
+        return $string;
+    }
+
+    public function addToDatabase(){
+        include "../config.php";
+        biblioSQL::insertIntoTable($bdd, nounou, this->toSQLString())
     }
 
     /**

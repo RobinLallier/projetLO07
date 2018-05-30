@@ -6,7 +6,7 @@
  * Time: 18:26
  */
 
-class evaluation
+class Evaluation
 {
     private $idnounou;
     private $idparent;

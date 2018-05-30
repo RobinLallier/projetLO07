@@ -6,7 +6,7 @@
  * Time: 18:24
  */
 
-class parents
+class Parents
 {
     private $idparent;
     private $nom;

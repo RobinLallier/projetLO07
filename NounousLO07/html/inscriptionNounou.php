@@ -28,69 +28,69 @@
          <legend>Veuillez rentrez les informations suivantes :</legend>
          <div class="form-group">
              <label for="login">Login</label>
-             <input type="text" class="form-control" id="login" placeholder="Choisissez un login">
+             <input type="text" class="form-control" name="login" placeholder="Choisissez un login">
 
          </div>
          <div class="form-group">
              <label for="password">Mot de Passe</label>
-             <input type="password" class="form-control" id="password" placeholder="Votre mot de passe">
+             <input type="password" class="form-control" name="password" placeholder="Votre mot de passe">
              <small id="emailHelp" class="form-text text-muted">Votre mot de passe restera confidentiel.</small>
          </div>
         <br>
         <br>
      <div class="form-group">
          <label for="nom">Nom</label>
-         <input type="text" class="form-control" id="nom" placeholder="Votre nom">
+         <input type="text" class="form-control" name="nom" placeholder="Votre nom">
 
      </div>
 
      <div class="form-group">
          <label for="prenom">Prénom</label>
-         <input type="text" class="form-control" id="prenom" placeholder="Votre prénom">
+         <input type="text" class="form-control" name="prenom" placeholder="Votre prénom">
 
          <div class="form-group">
-             <label for="ville">Ville</label>
-             <input type="text" class="form-control" id="ville" placeholder="Votre code postal">
+             <label for="ville">Code Postal</label>
+             <input type="text" class="form-control" name="ville" placeholder="Votre code postal">
 
          </div>
 
          <div class="form-group">
              <label for="email">Adresse eMail</label>
-             <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Votre email">
+             <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Votre email">
 
          </div>
 
          <div class="form-group">
              <label for="numero">Numéro de téléphone</label>
-             <input type="text" class="form-control" id="numero" placeholder="Votre numéro de portable">
+             <input type="text" class="form-control" name="numero" placeholder="Votre numéro de portable">
 
          </div>
-
+    
          <div class="form-group">
              <label for="age">Age</label>
-             <input type="number" class="form-control" id="age" placeholder="">
+             <input type="number" class="form-control" name="age" placeholder="">
 
          </div>
 
          <div class="form-group">
              <label for="photo">Votre photo</label>
-             <input type="file" class="form-control" id="photo" placeholder="">
+             <input type="file" class="form-control" name="photo" placeholder="">
 
          </div>
 
          <div class="form-group">
              <label for="experience">Années d'expérience</label>
-             <input type="number" class="form-control" id="experience" placeholder="">
-
+             <input type="number" class="form-control" name="nounou_experience" placeholder="">
+     <!--TODO Ajouter Langues Étrangères -->
          </div>
 
          <div class="form-group">
              <label for="description">Description</label>
-             <input type="textarea" class="form-control" id="description" placeholder="">
+             <input type="textarea" class="form-control" name="description" placeholder="">
          </div>
 
          <div class="form-check">
-             <input type="checkbox" class="form-check-input" id="exampleCheck1">
+             <input type="checkbox" class="form-check-input" name="conditions" required>
              <label class="form-check-label" for="exampleCheck1">J'accepte les conditions générales d'utilisation</label>
          </div>
  <br>

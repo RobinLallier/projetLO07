@@ -6,7 +6,7 @@
  * Time: 18:31
  */
 
-class disponibilite
+class Disponibilite
 {
     private $idnounou;
     private $jour;

@@ -1,3 +1,13 @@
+<?php
+session_start();
+//On vérifie que la session correspond bien à un parent, sinon on déconnecte l'utilisateur.
+if($_SESSION['categorie'] !== 'admin'){
+    session_destroy();
+    header("Location: http://localhost:8888/index.html");
+}
+
+?>
+
 <!DOCTYPE html>
 <?php
 include '../php/config.php';

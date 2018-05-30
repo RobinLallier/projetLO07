@@ -6,7 +6,7 @@
  * Time: 18:22
  */
 
-class langue
+class Langue
 {
     private $idnounou;
     private $langue;
