@@ -81,31 +81,8 @@ include '../php/config.php';
                 }
                 ?>
 
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Prénom</th>
-                        <th scope="col">Revenus</th>
-                    </tr>
-                    </thead>
-                    <tbody>
 
-                    <?php
-                    $requete = "SELECT nom, prenom, revenus FROM NOUNOU ORDER BY revenus DESC;";
-                    $resultat = mysqli_query($bdd, $requete);
 
-                    if ($resultat) {
-                        
-                    }
-
-                    ?>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-
-                    </tbody>
-                </table>
 
             </article>
             <h2 class="lead">Que voulez-vous faire?</h2>
@@ -118,6 +95,92 @@ include '../php/config.php';
 
             </ul>
         </div>
+
+        <!-- TABLEAU POUR REVENUS PAR NOUNOUS -->
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">idNounou</th>
+                <th scope="col">Revenus</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <?php
+            $requete = "SELECT idNounou, revenus FROM NOUNOU WHERE candidature = 0 ORDER BY revenus DESC;";
+            $resultat = mysqli_query($bdd, $requete);
+
+            if ($resultat) {
+                while($revenusnounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)){
+                    $idNounou = $revenusnounous['idNounou'];
+                    $revenu = $revenusnounous['revenus'];
+
+                    echo("<tr><td>".$idNounou."</td>");
+                    echo("<td>".$revenu."</td></tr>");
+                }
+
+            }
+
+
+            ?>
+
+            </tbody>
+        </table>
+
+
+        <!-- =============================-->
+
+
+        <!-- RECHERCHER NOUNOU-->
+
+        <form method="POST" action="board_admin.php">
+            <input type="text" name="nomNounou" value="Nom de la nounou">
+            <input type="submit" value="Rechercher">
+        </form>
+
+
+        <!-- TABLEAU PROFIL NOUNOU -->
+
+        <?php
+
+
+        if(isset($_POST['nomNounou'])){
+            $nom = $_POST['nomNounou'];
+            $requete = "SELECT e.num_resa, e.note, e.commentaire
+FROM EVALUATION e, RESERVATIONS r, UTILISATEURS u 
+WHERE e.num_resa = r.num_resa AND r.idNounou = u.id_utilisateur AND u.nom =\"$nom\";";
+            $resultat = mysqli_query($bdd, $requete);
+
+            echo("<div class=\"card\" style=\"width: 18rem;\">
+                    <img class=\"card-img-top\" src=\".../100px180/?text=Image cap\" alt=\"Card image cap\">
+                          <div class=\"card-body\">
+                             <h5 class=\"card-title\">".$nom."</h5>
+                             <p class=\"card-text\">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                           </div>
+                                <ul class=\"list-group list-group-flush\">");
+
+            if ($resultat) {
+                while($nounou = mysqli_fetch_array($resultat, MYSQLI_ASSOC)){
+                    $resaNounou = $nounou['num_resa'];
+                    $noteNounou = $nounou['note'];
+                    $commentaireNounou = $nounou['commentaire'];
+                    echo("<li class=\"list-group-item\>".$resaNounou."</li>");
+                    echo("<li class=\"list-group-item\>".$noteNounou."</li>");
+                    echo("<li class=\"list-group-item\>".$commentaireNounou."</li>");
+                    echo("</ul></div>");
+
+
+
+                }
+            }
+
+
+
+
+        }
+        ?>
+
 
 
         <div id="chiffre-affaire" class="hidden">
