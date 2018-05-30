@@ -14,23 +14,24 @@ if( isset($_POST["login"]) && isset($_POST["password"])) {
 
     if( mysqli_query($bdd, "SELECT * FROM UTILISATEURS WHERE mdp=\"$password\" AND login=\"$login\"; ")){
 
-        if(mysqli_query($bdd, "SELECT admin FROM UTILISATEURS WHERE mdp=\"$password\" AND login=\"$login\"; ") === "1") {
+        $req = mysqli_query($bdd, "SELECT admin FROM UTILISATEURS WHERE mdp=\"$password\" AND login=\"$login\" AND admin=\"1\"; ");
+
+        if(mysqli_num_rows($req) === 1) {
             $_SESSION['categorie']='admin';
-            header(Location: )
-            echo("<h1> Cette personne est un admin</h1>");
+            header("Location: http://localhost:8888/html/board_admin.html");
         }
         else{
             $user =  mysqli_query($bdd, "SELECT id_utilisateur FROM UTILISATEURS WHERE mdp=\"$password\" AND login=\"$login\"; ");
             $result = mysqli_fetch_array($user, MYSQLI_ASSOC);
 
-
-            if(mysqli_query($bdd, "SELECT * FROM NOUNOU WHERE idNounou=".$result["id_utilisateur"]." ; ")){
+            $request = mysqli_query($bdd, "SELECT * FROM NOUNOU WHERE idNounou=".$result["id_utilisateur"]." ; ");
+            if(mysqli_num_rows($request)===1){
                 $_SESSION['categorie']='nounou';
-                echo("<h3>coucou! ".$_SESSION['categorie']."</h3>");
+                header("Location: http://localhost:8888/html/board_nounou.php");
             }
             else{
                 $_SESSION['categorie']='parent';
-                echo("<h3>coucou! ".$_SESSION['categorie']."</h3>");
+                header("Location: http://localhost:8888/html/board_parent.php");
             }
 
         }
