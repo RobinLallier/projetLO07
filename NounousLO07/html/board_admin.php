@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+include '../php/config.php';
+?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -39,11 +42,60 @@
         <div id="gestion-nounou" class="hidden">
 
             <article>
-                <!-- À MODIFIER DYNAMIQUEMENT EN PHP -->
 
-                <p>Vous avez 7 candidatures de nounous en attente.</p>
+                <?php
+
+                $requete = "SELECT * FROM NOUNOU WHERE candidature=1;";
+                $resultat = mysqli_query($bdd, $requete);
+
+                if ($resultat) {
+                    $candidatures = mysqli_num_rows($resultat);
+                    echo("Vous avez ". $candidatures . " candidature(s) de nounous");
+                } else{
+                    echo ("Il n'y a aucune candidature actuellement");
+                }
+                ?>
+
                 <br/>
-                <p>57 nounous sont référencées sur votre site.</p>
+
+                <?php
+
+                $requete = "SELECT * FROM NOUNOU WHERE candidature=0;";
+                $resultat = mysqli_query($bdd, $requete);
+
+                if ($resultat) {
+                    $nbrnounous = mysqli_num_rows($resultat);
+                    echo("Vous avez ". $nbrnounous . " nounous inscrites sur la plateforme");
+                } else{
+                    echo ("Aucune nounou n'est encore inscrite sur la plateforme");
+                }
+                ?>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Revenus</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php
+                    $requete = "SELECT nom, prenom, revenus FROM NOUNOU ORDER BY revenus DESC;";
+                    $resultat = mysqli_query($bdd, $requete);
+
+                    if ($resultat) {
+                        
+                    }
+
+                    ?>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+
+                    </tbody>
+                </table>
 
             </article>
             <h2 class="lead">Que voulez-vous faire?</h2>
@@ -52,6 +104,8 @@
                 <li class="nav-item mr-2"><button type="button" class="btn btn-info">Traiter les candidatures</button></li>
                 <li class="nav-item mr-2"><button type="button" class="btn btn-info">Rechercher une nounou</button></li>
                 <li class="nav-item mr-2"><button type="button" class="btn btn-info">Nounous par revenus</button></li>
+
+
             </ul>
         </div>
 
