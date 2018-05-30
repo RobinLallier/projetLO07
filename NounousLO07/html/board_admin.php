@@ -45,7 +45,8 @@ include '../php/php_class/config.php';
             <article>
 
                 <?php
-                require_once ('../php/php_class/config.php');
+                include '../php/php_class/config.php';
+
                 $requete = "SELECT COUNT(*) FROM NOUNOU WHERE candidature=1;"
                 $resultat = mysqli_query($bdd, $requete);
 
@@ -56,7 +57,6 @@ include '../php/php_class/config.php';
                     echo ("Il n'y a aucune candidature actuellement");
                 }
                 ?>
-
 
                 <br/>
                 <p>57 nounous sont référencées sur votre site.</p>
