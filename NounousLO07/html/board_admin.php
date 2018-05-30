@@ -45,11 +45,11 @@ include '../php/config.php';
 
                 <?php
 
-                $requete1 = "SELECT * FROM NOUNOU WHERE candidature=1;";
-                $resultat1 = mysqli_query($bdd, $requete1);
+                $requete = "SELECT * FROM NOUNOU WHERE candidature=1;";
+                $resultat = mysqli_query($bdd, $requete);
 
-                if ($resultat1) {
-                    $candidatures = mysqli_num_rows($resultat1);
+                if ($resultat) {
+                    $candidatures = mysqli_num_rows($resultat);
                     echo("Vous avez ". $candidatures . " candidature(s) de nounous");
                 } else{
                     echo ("Il n'y a aucune candidature actuellement");
@@ -60,16 +60,42 @@ include '../php/config.php';
 
                 <?php
 
-                $requete2 = "SELECT * FROM NOUNOU WHERE candidature=0;";
-                $resultat2 = mysqli_query($bdd, $requete2);
+                $requete = "SELECT * FROM NOUNOU WHERE candidature=0;";
+                $resultat = mysqli_query($bdd, $requete);
 
-                if ($resultat2) {
-                    $nbrnounous = mysqli_num_rows($resultat2);
+                if ($resultat) {
+                    $nbrnounous = mysqli_num_rows($resultat);
                     echo("Vous avez ". $nbrnounous . " nounous inscrites sur la plateforme");
                 } else{
                     echo ("Aucune nounou n'est encore inscrite sur la plateforme");
                 }
                 ?>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Revenus</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php
+                    $requete = "SELECT nom, prenom, revenus FROM NOUNOU ORDER BY revenus DESC;";
+                    $resultat = mysqli_query($bdd, $requete);
+
+                    if ($resultat) {
+                        
+                    }
+
+                    ?>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+
+                    </tbody>
+                </table>
 
             </article>
             <h2 class="lead">Que voulez-vous faire?</h2>
@@ -78,6 +104,8 @@ include '../php/config.php';
                 <li class="nav-item mr-2"><button type="button" class="btn btn-info">Traiter les candidatures</button></li>
                 <li class="nav-item mr-2"><button type="button" class="btn btn-info">Rechercher une nounou</button></li>
                 <li class="nav-item mr-2"><button type="button" class="btn btn-info">Nounous par revenus</button></li>
+
+
             </ul>
         </div>
 
