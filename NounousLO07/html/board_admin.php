@@ -46,11 +46,11 @@ include '../php/config.php';
 
                 <?php
 
-                $requete = "SELECT COUNT(*) FROM NOUNOU WHERE candidature=1;";
-                $resultat = mysqli_query($bdd, $requete);
+                $requete1 = "SELECT COUNT(*) FROM NOUNOU WHERE candidature=1;";
+                $resultat1 = mysqli_query($bdd, $requete1);
 
-                if ($resultat) {
-                    $candidatures = mysqli_num_rows($resultat);
+                if ($resultat1) {
+                    $candidatures = mysqli_num_rows($resultat1);
                     echo("Vous avez ". $candidatures . " candidature(s) de nounous");
                 } else{
                     echo ("Il n'y a aucune candidature actuellement");
@@ -58,7 +58,19 @@ include '../php/config.php';
                 ?>
 
                 <br/>
-                <p>57 nounous sont référencées sur votre site.</p>
+
+                <?php
+
+                $requete2 = "SELECT COUNT(*) FROM NOUNOU WHERE candidature=0;";
+                $resultat2 = mysqli_query($bdd, $requete2);
+
+                if ($resultat2) {
+                    $nbrnounous = mysqli_num_rows($resultat2);
+                    echo("Vous avez ". $nbrnounous . " nounous inscrites sur la plateforme");
+                } else{
+                    echo ("Aucune nounou n'est encore inscrite sur la plateforme");
+                }
+                ?>
 
             </article>
             <h2 class="lead">Que voulez-vous faire?</h2>
