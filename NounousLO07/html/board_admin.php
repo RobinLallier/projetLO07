@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+include '../php/php_class/config.php';
+?>
+?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -39,8 +43,21 @@
         <div id="gestion-nounou" class="hidden">
 
             <article>
-                <!-- À MODIFIER DYNAMIQUEMENT EN PHP -->
-                <p>Vous avez 7 candidatures de nounous en attente.</p>
+
+                <?php
+                require_once ('../php/php_class/config.php');
+                $requete = "SELECT COUNT(*) FROM NOUNOU WHERE candidature=1;"
+                $resultat = mysqli_query($bdd, $requete);
+
+                if ($resultat) {
+                    $candidatures = mysqli_num_rows($resultat);
+                    echo("Vous avez ". $candidatures . "candidatures de nounous");
+                } else{
+                    echo ("Il n'y a aucune candidature actuellement");
+                }
+                ?>
+
+
                 <br/>
                 <p>57 nounous sont référencées sur votre site.</p>
 
