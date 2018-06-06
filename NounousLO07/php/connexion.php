@@ -18,7 +18,7 @@ if( isset($_POST["login"]) && isset($_POST["password"])) {
 
         if(mysqli_num_rows($req) === 1) {
             $_SESSION['categorie']='admin';
-            header("Location: http://localhost:8888/html/board_admin.html");
+            header("Location: http://localhost:8888/html/board_admin.php");
         }
         else{
             $user =  mysqli_query($bdd, "SELECT id_utilisateur FROM UTILISATEURS WHERE mdp=\"$password\" AND login=\"$login\"; ");

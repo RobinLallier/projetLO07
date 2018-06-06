@@ -30,8 +30,6 @@
              <label for="login">Login</label>
              <input type="text" class="form-control" name="login" placeholder="Choisissez un login">
 
-         </div>
-         <div class="form-group">
              <label for="password">Mot de Passe</label>
              <input type="password" class="form-control" name="password" placeholder="Votre mot de passe">
              <small id="emailHelp" class="form-text text-muted">Votre mot de passe restera confidentiel.</small>
@@ -41,43 +39,26 @@
      <div class="form-group">
          <label for="nom">Nom</label>
          <input type="text" class="form-control" name="nom" placeholder="Votre nom">
-
-     </div>
-
-     <div class="form-group">
          <label for="prenom">Prénom</label>
          <input type="text" class="form-control" name="prenom" placeholder="Votre prénom">
 
-         <div class="form-group">
-             <label for="ville">Code Postal</label>
-             <input type="text" class="form-control" name="ville" placeholder="Votre code postal">
+         <label for="ville">Code Postal</label>
+         <input type="text" class="form-control" name="ville" placeholder="Votre code postal">
 
-         </div>
 
-         <div class="form-group">
-             <label for="email">Adresse eMail</label>
-             <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Votre email">
+         <label for="email">Adresse eMail</label>
+         <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Votre email">
 
-         </div>
+         <label for="telephone">Numéro de téléphone</label>
+         <input type="text" class="form-control" name="telephone" placeholder="Votre numéro de portable">
 
-         <div class="form-group">
-             <label for="numero">Numéro de téléphone</label>
-             <input type="text" class="form-control" name="numero" placeholder="Votre numéro de portable">
+         <label for="age">Age</label>
+         <input type="number" class="form-control" name="age" placeholder="">
 
-         </div>
-    
-         <div class="form-group">
-             <label for="age">Age</label>
-             <input type="number" class="form-control" name="age" placeholder="">
 
-         </div>
-
-         <div class="form-group">
-             <label for="photo">Votre photo</label>
-             <input type="file" class="form-control" name="photo" placeholder="">
-
-         </div>
-
+         <label for="photo">Votre photo</label>
+         <input type="file" class="form-control" name="photo" placeholder="">
+     </div>
          <div class="form-group">
              <label for="experience">Années d'expérience</label>
              <input type="number" class="form-control" name="nounou_experience" placeholder="">

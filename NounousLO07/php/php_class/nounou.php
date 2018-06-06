@@ -6,55 +6,46 @@
  * Time: 12:47
  */
 
+
+
 class Nounou
 {
-    private $nom;
-    private $prenom;
-    private $ville;
-    private $mail;
-    private $tel;
+    private $idNounou;
     private $photo;
     private $age;
     private $experience;
     private $description;
 
+    private $revenu;
+    private $candidature;
+    private $blocage;
+
     /**
-     * nounou constructor.
-     * @param $nom
-     * @param $prenom
-     * @param $ville
-     * @param $mail
-     * @param $tel
+     * Nounou constructor.
+     * @param $idNounou
      * @param $photo
      * @param $age
      * @param $experience
      * @param $description
      */
-    public function __construct($nom, $prenom, $ville, $mail, $tel, $photo, $age, $experience, $description)
+    public function __construct($idNounou, $photo, $age, $experience, $description)
     {
-        $this->nom = $nom;
-        $this->prenom = $prenom;
-        $this->ville = $ville;
-        $this->mail = $mail;
-        $this->tel = $tel;
+        $this->idNounou = $idNounou;
         $this->photo = $photo;
         $this->age = $age;
         $this->experience = $experience;
         $this->description = $description;
     }
 
-    public function toSQLString($idUser){
+
+    public function toSQLString(){
         $string = "(idNounou, lien_photo, age, annee_experience, presentation) 
-        VALUES ($idUser, '".$this->getPhoto()."', '".$this->getAge()."', '".$this->getExperience()
+        VALUES ('".$this->getIdNounou()."', '".$this->getPhoto()."', '".$this->getAge()."', '".$this->getExperience()
         ."', '".$this->getDescription()."')";
 
         return $string;
     }
 
-    public function addToDatabase(){
-        include "../config.php";
-        biblioSQL::insertIntoTable($bdd, nounou, this->toSQLString())
-    }
 
     /**
      * @return mixed
@@ -198,6 +189,70 @@ class Nounou
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdNounou()
+    {
+        return $this->idNounou;
+    }
+
+    /**
+     * @param mixed $idNounou
+     */
+    public function setIdNounou($idNounou)
+    {
+        $this->idNounou = $idNounou;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRevenu()
+    {
+        return $this->revenu;
+    }
+
+    /**
+     * @param mixed $revenu
+     */
+    public function setRevenu($revenu)
+    {
+        $this->revenu = $revenu;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCandidature()
+    {
+        return $this->candidature;
+    }
+
+    /**
+     * @param mixed $candidature
+     */
+    public function setCandidature($candidature)
+    {
+        $this->candidature = $candidature;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBlocage()
+    {
+        return $this->blocage;
+    }
+
+    /**
+     * @param mixed $blocage
+     */
+    public function setBlocage($blocage)
+    {
+        $this->blocage = $blocage;
     }
 
 }
