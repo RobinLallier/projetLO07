@@ -8,6 +8,8 @@ class biblioSQL{
 
         $request ="INSERT INTO ".$table." ".$stringSQL.";";
 
+
+
         if (mysqli_query($bdd, $request)) {
             echo "New record into $table created successfully";
         } else {
@@ -15,4 +17,12 @@ class biblioSQL{
         }
     }
 
+
+    static function findInTable($bdd, $table, $needle, $cle, $valeur){
+        $request = "SELECT ".$needle." INTO ".$table."WHERE ".$cle."=".$valeur.";";
+
+        $result = mysqli_query($bdd, $request);
+        
+
+    }
 }
