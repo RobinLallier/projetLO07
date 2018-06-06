@@ -51,6 +51,24 @@ if($_SESSION['categorie'] !== 'parent'){
             <h2 class="lead">Demande de garde ponctuelle</h2>
 
             <!-- INSERER FORMULAIRE DE DEMANDE DE GARDE PONCTUELLE -->
+
+            <form method="post" action="board_admin.php">
+                <select>
+                    <?php
+                    $requete = "SELECT DISTINCT langue FROM LANGUES;";
+                    $resultat = mysqli_query($bdd, $requete);
+
+                    if ($resultat) {
+                        while ($languesnounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
+                            $langue = $languesnounous['langue'];
+                            echo ("<option>".$langue."</option>\n");
+                        }
+                    }
+                    ?>
+
+                </select>
+                <input type="submit" value="Rechercher">
+            </form>
         </div>
 
 
