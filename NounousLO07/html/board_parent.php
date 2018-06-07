@@ -97,14 +97,15 @@ include '../php/config.php';
 
         <div>
 
-            <table class=\"table\">
+            <table class="table">
                 <thead>
                 <tr>
                     <th scope=\"col\">Nom</th>
                     <th scope=\"col\">Prénom</th>
                     <th scope=\"col\">Age</th>
-                    <th scope=\"col\">Années d'expérience</th>
+                    <th scope=\"col\">Expérience</th>
                     <th scope=\"col\">Présentation</th>
+                    <th scope=\"col\">Disponibilités</th>
 
 
                 </tr>
@@ -115,7 +116,7 @@ include '../php/config.php';
             if(isset($_POST['langueNounou'])){
                 $langueNounou = $_POST['langueNounou'];
 
-                echo("<h2>$langueNounou</h2>");
+                /*echo("<h2>$langueNounou</h2>");*/
                 $requete = "SELECT u.nom, u.prenom, n.age, n.annees_experience, n.presentation FROM LANGUES l, NOUNOU n, UTILISATEURS u WHERE l.langue=\"$langueNounou\" AND u.id_utilisateur=n.idNounou AND n.idNounou=l.idNounou;";
                 $resultat = mysqli_query($bdd, $requete);
 
@@ -135,7 +136,8 @@ include '../php/config.php';
                     echo("<td>" . $prenom . "</td>");
                     echo("<td>" . $age . "</td>");
                     echo("<td>" . $experience . "</td>");
-                    echo("<td>" . $presentation . "</td></tr>");
+                    echo("<td>" . $presentation . "</td>");
+                    echo("<td><button type=\"button\" class=\"btn btn-secondary\">Disponibilités</button></td></tr>");
 
                 }
             }
