@@ -6,9 +6,9 @@ session_start();
 if( isset($_POST["login"]) && isset($_POST["password"])) {
 
     $login = $_POST["login"];
-    printf($login);
+
     $password = $_POST["password"];
-    printf($password);
+
     //Hachage du mot de passe
     //$password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
@@ -23,6 +23,9 @@ if( isset($_POST["login"]) && isset($_POST["password"])) {
         else{
             $user =  mysqli_query($bdd, "SELECT id_utilisateur FROM UTILISATEURS WHERE mdp=\"$password\" AND login=\"$login\"; ");
             $result = mysqli_fetch_array($user, MYSQLI_ASSOC);
+
+            //Associe un id à la session de l'utilisateur
+            $_SESSION['id'] = $result["id_utilisateur"];
 
             $request = mysqli_query($bdd, "SELECT * FROM NOUNOU WHERE idNounou=".$result["id_utilisateur"]." ; ");
             if(mysqli_num_rows($request)===1){
