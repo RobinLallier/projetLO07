@@ -21,6 +21,9 @@
     <a href="../php/config.php" class="nav-item ">Se Connecter</a>
 
 </nav>
+
+<!------ FORMULAIRE INFORMATIONS INSCRIPTION NOUNOU ---->
+
 <div class="row">
     <div class="jumbotron col-10 offset-md-1">
  <form method="post" action="../php/inscription.php">
@@ -62,7 +65,9 @@
          <div class="form-group">
              <label for="experience">Années d'expérience</label>
              <input type="number" class="form-control" name="nounou_experience" placeholder="">
+
      <!--TODO Ajouter Langues Étrangères -->
+
          </div>
 
          <div class="form-group">

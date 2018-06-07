@@ -55,6 +55,35 @@ include '../php/config.php';
 
             <!-- INSERER FORMULAIRE DE DEMANDE DE GARDE PONCTUELLE -->
 
+            <form method="post" action="board_parent.php">
+                <div class="form-group">
+                    <label for="début">Je recherche une nounou du :</label><br>
+                    <input type="date" max="2020-31-31" min="2018-01-12" name="datedebut"><br>
+                </div>
+                <div class="form-group">
+
+                    <label for="jour">Heure :</label><br>
+                    <input type="number" min=1 max="24" class="form-control" name="heuredebut" placeholder="">
+                </div>
+
+                <div class="form-group">
+                    <label for="fin">Jusqu'au :</label><br>
+                    <input type="date" max="2020-31-31" min="2018-01-12" name="datefin"><br>
+                </div>
+                <div class="form-group">
+                    <label for="horaire">Heure :</label>
+                    <input type="number" min=1 max="24" class="form-control" name="heurefin" placeholder="">
+                </div>
+
+                <div class="form-group">
+                    <label for="ville">Veuillez entrer le code postal de votre ville :</label>
+                    <input type="text" class="form-control" value="Exemple :  92250">
+                </div>
+
+                <input type="submit" value="Rechercher une nounou">
+
+            </form>
+
 
         </div>
 
@@ -63,6 +92,11 @@ include '../php/config.php';
 
             <h2 class="lead">Demande de garde récurrente</h2>
             <!-- INSERER FORMULAIRE DE DEMANDE DE GARDE RECURRENTE -->
+
+
+            <form method="POST" action="board_parent.php">
+
+            </form>
         </div>
 
 

@@ -39,6 +39,7 @@ if($resultat){
 
 
 -Afficher les nounous disponibles en fonction d'un jour, d'une heure de début et d'une heure de fin et d'un code postal (potentiellement récurrent )
+#Pour l'instant j'ai fait le formulaire garde ponctuelle (de tel jour à telle heure... dans telle ville)
 
 
 
