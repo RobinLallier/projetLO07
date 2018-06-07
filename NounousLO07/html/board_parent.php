@@ -9,6 +9,9 @@ if($_SESSION['categorie'] !== 'parent'){
 ?>
 
 <!DOCTYPE html>
+<?php
+include '../php/config.php';
+?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -51,6 +54,8 @@ if($_SESSION['categorie'] !== 'parent'){
             <h2 class="lead">Demande de garde ponctuelle</h2>
 
             <!-- INSERER FORMULAIRE DE DEMANDE DE GARDE PONCTUELLE -->
+
+
         </div>
 
 
@@ -64,8 +69,86 @@ if($_SESSION['categorie'] !== 'parent'){
         <div id="garde-etrangere" class="hidden">
 
             <h2 class="lead">Demande de garde en langue étrangère</h2>
+
             <!-- INSERER FORMULAIRE DE DEMANDE DE GARDE ETRANGERE -->
+
+            <form method="post" action="board_parent.php">
+                <select name="langueNounou">
+                    <?php
+                    $requete = "SELECT DISTINCT langue FROM LANGUES;";
+                    $resultat = mysqli_query($bdd, $requete);
+
+                    if ($resultat) {
+                        while ($languesnounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
+                            $langueNounou = $languesnounous['langue'];
+                            echo ("<option value=$langueNounou>$langueNounou</option>\n");
+                        }
+                    }
+                    ?>
+
+                </select>
+
+                <input type="submit" value="Rechercher">
+            </form>
+
+
         </div>
+
+
+        <div>
+
+            <table class=\"table\">
+                <thead>
+                <tr>
+                    <th scope=\"col\">Nom</th>
+                    <th scope=\"col\">Prénom</th>
+                    <th scope=\"col\">Age</th>
+                    <th scope=\"col\">Années d'expérience</th>
+                    <th scope=\"col\">Présentation</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+
+            <?php
+            if(isset($_POST['langueNounou'])){
+                $langueNounou = $_POST['langueNounou'];
+
+                echo("<h2>$langueNounou</h2>");
+                $requete = "SELECT u.nom, u.prenom, n.age, n.annees_experience, n.presentation FROM LANGUES l, NOUNOU n, UTILISATEURS u WHERE l.langue=\"$langueNounou\" AND u.id_utilisateur=n.idNounou AND n.idNounou=l.idNounou;";
+                $resultat = mysqli_query($bdd, $requete);
+
+
+
+
+
+            if ($resultat) {
+                while ($listenounouslangue = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
+                    $nom = $listenounouslangue['nom'];
+                    $prenom = $listenounouslangue['prenom'];
+                    $age = $listenounouslangue['age'];
+                    $experience = $listenounouslangue['annees_experience'];
+                    $presentation = $listenounouslangue['presentation'];
+
+                    echo("<tr><td>" . $nom . "</td>");
+                    echo("<td>" . $prenom . "</td>");
+                    echo("<td>" . $age . "</td>");
+                    echo("<td>" . $experience . "</td>");
+                    echo("<td>" . $presentation . "</td></tr>");
+
+                }
+            }
+
+
+
+                }
+
+            ?>
+
+                </tbody>
+            </table>
+
 
     </div>
 

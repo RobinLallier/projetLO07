@@ -1,6 +1,6 @@
 <?php
 session_start();
-//On vérifie que la session correspond bien à un parent, sinon on déconnecte l'utilisateur.
+//On vérifie que la session correspond bien à un admin, sinon on déconnecte l'utilisateur.
 if($_SESSION['categorie'] !== 'admin'){
     session_destroy();
     header("Location: http://localhost:8888/index.html");
@@ -53,6 +53,9 @@ include '../php/config.php';
 
             <article>
 
+                <!-- NOUNOUS CANDIDATES -->
+
+                    <!-- Affichage du nombre de nounous candidates-->
                 <?php
 
                 $requete = "SELECT * FROM NOUNOU WHERE candidature=1;";
@@ -65,6 +68,13 @@ include '../php/config.php';
                     echo ("Il n'y a aucune candidature actuellement");
                 }
                 ?>
+
+            </article>
+
+            <article>
+                    <!-- Affichage tableau des candidatures avec ajouter/supprimer-->
+
+
 
                 <br/>
 
@@ -82,9 +92,52 @@ include '../php/config.php';
                 ?>
 
 
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Années d'expérience</th>
+                        <th scope="col">Présentation</th>
+                        <th scope="col">Modération</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php
+                $requete = "SELECT u.nom, u.prenom, n.age, n.annees_experience, n.presentation
+                            FROM UTILISATEURS u, NOUNOU n
+                            WHERE u.id_utilisateur=n.idNounou AND n.candidature = 1;";
+                $resultat = mysqli_query($bdd, $requete);
+
+                if ($resultat) {
+                    while($candidaturenounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)){
+                        $nom = $candidaturenounous['nom'];
+                        $prenom = $candidaturenounous['prenom'];
+                        $age = $candidaturenounous['age'];
+                        $experience = $candidaturenounous['annees_experience'];
+                        $presentation = $candidaturenounous['presentation'];
+
+                        echo("<tr><td>".$nom."</td>");
+                        echo("<td>".$prenom ."</td>");
+                        echo("<td>".$age ."</td>");
+                        echo("<td>".$experience ."</td>");
+                        echo("<td>".$presentation ."</td>");
+                        echo("<td><button type=\"button\" class=\"btn btn-outline-info\">Accepter</button>&nbsp;<button type=\"button\" class=\"btn btn-outline-warning\">Refuser</button></td></tr>");
+
+                }
+                ?>
+                    </tbody>
+                </table>
+
 
 
             </article>
+
+
             <h2 class="lead">Que voulez-vous faire?</h2>
 
             <ul class="nav">
@@ -103,24 +156,39 @@ include '../php/config.php';
             <tr>
                 <th scope="col">idNounou</th>
                 <th scope="col">Revenus</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Modération</th>
+
             </tr>
             </thead>
             <tbody>
 
             <?php
-            $requete = "SELECT idNounou, revenus FROM NOUNOU WHERE candidature = 0 ORDER BY revenus DESC;";
+            $requete = "SELECT idNounou, revenus, blocage FROM NOUNOU WHERE candidature = 0 ORDER BY revenus DESC;";
             $resultat = mysqli_query($bdd, $requete);
 
             if ($resultat) {
                 while($revenusnounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)){
                     $idNounou = $revenusnounous['idNounou'];
                     $revenu = $revenusnounous['revenus'];
+                    $blocage = $revenusnounous['blocage'];
 
                     echo("<tr><td>".$idNounou."</td>");
-                    echo("<td>".$revenu."</td></tr>");
+                    echo("<td>".$revenu."</td>");
+                    if($blocage == false){
+                        echo ("<td></td>");
+                    } elseif($blocage = true){
+                        echo("<td>Bloquée</td>");
+                    }
+                    if ($blocage == false){
+                        echo ("<td><button type=\"button\" class=\"btn btn-danger\">Bloquer</button></td></tr>");
+                    } elseif ($blocage == true){
+                        echo ("<td><button type=\"button\" class=\"btn btn-success\">Débloquer</button></td></tr>");
+                    }
+
                 }
 
-            }
+            }}
 
 
             ?>
