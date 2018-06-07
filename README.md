@@ -20,14 +20,11 @@ pour chaque enfant supplémentaire :
 ● 3h15 avec un enfant = 4h * 7 = 28 €
 ● 2h avec 3 enfant = 2 * (7 + 4 + 4) = 30 €
 
-<<<<<<< HEAD
 -Afficher la liste des nounous candidates + bouton Accepter/Supprimer //OK
 
 -Afficher toutes les disponibilités associées à une nounou. 
 --> Cliquer sur voir disponibilités
-=======
--Afficher toutes les disponibilités associées à une nounou.
->>>>>>> a79f9bab6eb1b281645b2213c00e3153b6d0f577
+
 
 -Afficher les nounous disponibles en fonction d'un jour, d'une heure de début et d'une heure de fin et d'un code postal (potentiellement récurrent )
 
