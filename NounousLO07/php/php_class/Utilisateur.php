@@ -5,8 +5,9 @@
  * Date: 31/05/2018
  * Time: 08:32
  */
-define('TABLE', 'UTILISATEURS');
 include ("biblioSQL.php");
+define('TABLE', 'UTILISATEURS');
+
 
 class Utilisateur
 {
@@ -54,8 +55,9 @@ class Utilisateur
 
         $SQLstring = $this->toSQLString();
         biblioSQL::insertIntoTable($bdd, TABLE, $SQLstring);
-        biblioSQL::findInTable($bdd, TABLE, "id_utilisateur", "login", $this->getLogin());
 
+        $result = biblioSQL::findInTable($bdd, TABLE, "id_utilisateur", "login", $this->getLogin());
+        $this->setIdUtilisateur($result);
 }
 
     /**

@@ -5,8 +5,9 @@
  * Date: 16/05/2018
  * Time: 12:47
  */
+include ("biblioSQL.php");
 
-
+define('TABLENOUNOU', 'NOUNOU');
 
 class Nounou
 {
@@ -40,10 +41,20 @@ class Nounou
 
     public function toSQLString(){
         $string = "(idNounou, lien_photo, age, annee_experience, presentation) 
-        VALUES ('".$this->getIdNounou()."', '".$this->getPhoto()."', '".$this->getAge()."', '".$this->getExperience()
-        ."', '".$this->getDescription()."')";
+        VALUES ('".$this->getIdNounou().
+            "', '".$this->getPhoto().
+            "', '".$this->getAge().
+            "', '".$this->getExperience().
+            "', '".$this->getDescription()."')";
 
         return $string;
+    }
+
+    public function addToDatabase($bdd){
+
+        $SQLstring = $this->toSQLString();
+        biblioSQL::insertIntoTable($bdd, TABLENOUNOU, $SQLstring);
+
     }
 
 

@@ -5,6 +5,8 @@
  * Date: 16/05/2018
  * Time: 18:31
  */
+include("biblioSQL.php");
+define("TABLEDISPO", "DISPONIBILITES");
 
 class Disponibilite
 {
@@ -22,12 +24,30 @@ class Disponibilite
      * @param $heureDebut
      * @param $heureFin
      */
-    public function __construct($idnounou, $jour, $heureDebut, $heureFin)
+    public function __construct($idnounou, $date, $heureDebut, $heureFin)
     {
         $this->idnounou = $idnounou;
-        $this->jour = $jour;
+        $this->date = $date;
         $this->heureDebut = $heureDebut;
         $this->heureFin = $heureFin;
+    }
+
+    public function toSQLString(){
+        $string = "(idnounou, heure_debut, heure_fin, date) 
+        VALUES ('".$this->getIdnounou()
+            ."', '".$this->getHeureDebut()
+            ."', '".$this->getHeureFin()
+            ."', '".$this->getDate()."')";
+
+        return $string;
+    }
+
+
+    public function addToDatabase($bdd){
+
+        $SQLstring = $this->toSQLString();
+        biblioSQL::insertIntoTable($bdd, TABLEDISPO, $SQLstring);
+
     }
 
     /**

@@ -19,10 +19,14 @@ class biblioSQL{
 
 
     static function findInTable($bdd, $table, $needle, $cle, $valeur){
-        $request = "SELECT ".$needle." INTO ".$table."WHERE ".$cle."=".$valeur.";";
+        $request = "SELECT ".$needle." FROM ".$table." WHERE ".$cle."='".$valeur."';";
 
-        $result = mysqli_query($bdd, $request);
-        
+        $tuple = mysqli_query($bdd, $request);
+        if($tuple){
+            $result = mysqli_fetch_array($tuple, MYSQLI_ASSOC);
+        }
+
+        return $result[$needle];
 
     }
 }
