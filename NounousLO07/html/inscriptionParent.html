@@ -25,27 +25,77 @@
     </nav>
     <div class="row">
         <div class="jumbotron col-10 offset-md-1">
-            <form method="post" action="../php/inscription.php">
-                <div class="form-group">
-                    <label for="email">Adresse eMail</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Votre email">
+            <form method="post" action="test.php">
+                <fieldset>
+                    <legend>Veuillez rentrez les informations suivantes :</legend>
+                    <div class="form-group">
+                        <label>Login</label>
+                        <input type="text" class="form-control" name="login" placeholder="Choisissez un login">
 
-                </div>
-                <div class="form-group">
-                    <label for="password">Mot de Passe</label>
-                    <input type="password" class="form-control" id="password" placeholder="Votre mot de passe">
-                    <small id="emailHelp" class="form-text text-muted">Votre mot de passe restera confidentiel.</small>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">J'accepte les conditions générales d'utilisation</label>
-                </div>
-                <button type="submit" class="btn btn-primary">M'inscrire</button>
+                        <label>Mot de Passe</label>
+                        <input type="password" class="form-control" name="password" placeholder="Votre mot de passe">
+                        <small id="emailHelp" class="form-text text-muted">Votre mot de passe restera confidentiel.</small>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <label>Nom</label>
+                        <input type="text" class="form-control" name="nom" placeholder="Votre nom">
+                        <label>Prénom</label>
+                        <input type="text" class="form-control" name="prenom" placeholder="Votre prénom">
+
+                        <label>Code Postal</label>
+                        <input type="text" class="form-control" name="ville" placeholder="Votre code postal">
+
+
+                        <label>Adresse eMail</label>
+                        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Votre email">
+
+                        <label>Numéro de téléphone</label>
+                        <input type="text" class="form-control" name="telephone" placeholder="Votre numéro de portable">
+
+                        <label>Age</label>
+                        <input type="number" class="form-control" name="age" placeholder="">
+                        
+                    </div>
+                </fieldset>
+
+
+
+                <fieldset>
+                    <legend>Renseignez les informations de vos enfants </legend>
+                    <small class="form-text text-muted">(rien de confidentiel, promis!)</small>
+
+                    <label>Combien avez-vous d'enfants?</label>
+                    <select id="select-enfant" onchange="enfant()">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+
+                    <div class="form-group" id="enfants"></div>
+                </fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" name="description" placeholder="">
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="conditions" required>
+                        <label class="form-check-label">J'accepte les conditions générales d'utilisation</label>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">M'inscrire</button>
+                </fieldset>
+
             </form>
         </div>
     </div>
 
 
-
+<script src="../js/enfant.js"></script>
 </body>
 </html>

@@ -76,7 +76,7 @@ elseif (isset($_POST["jour"]) && !empty($_POST["jour"])){
 
             <h2 class="lead">Ajouter une Disponibilité ponctuelle</h2>
 
-            <!-- INSERER FORMULAIRE DE DEMANDE DE GARDE PONCTUELLE -->
+            <!-- INSERER FORMULAIRE DE DISPONIBILITE PONCTUELLE -->
             <form class="form container" method="post">
                 <fieldset class="form-group">
                     <label for="date">Choisissez la date de votre disponibilité : </label>

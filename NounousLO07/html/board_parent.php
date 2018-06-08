@@ -54,7 +54,53 @@ include '../php/config.php';
             <h2 class="lead">Demande de garde ponctuelle</h2>
 
             <!-- INSERER FORMULAIRE DE DEMANDE DE GARDE PONCTUELLE -->
+            <form class="form container" method="post">
+                <fieldset class="form-group col-md-5">
+                    <label for="date">Choisissez la date de la garde :</label>
+                    <input class="form-control" type="date" name="date" min="2018-06-01" max="2018-12-31">
+                </fieldset>
+                <div class="form-row">
+                    <div class="form-group col-md-5 ">
+                        <label for="heure-debut">Entrez l'heure de début :</label>
+                        <select name="heure-debut" class="form-control ">
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                        </select>
+                    </div>
 
+                    <div class="form-group col-md-5 offset-md-2">
+                        <label for="heure-fin" class="">Entrez l'heure de fin :</label>
+                        <select name="heure-fin" class="form-control">
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Trouver une nounou!</button>
+            </form>
 
         </div>
 
@@ -92,30 +138,17 @@ include '../php/config.php';
             </form>
 
 
-        </div>
 
 
-        <div>
-
-            <table class=\"table\">
-                <thead>
-                <tr>
-                    <th scope=\"col\">Nom</th>
-                    <th scope=\"col\">Prénom</th>
-                    <th scope=\"col\">Age</th>
-                    <th scope=\"col\">Années d'expérience</th>
-                    <th scope=\"col\">Présentation</th>
 
 
-                </tr>
-                </thead>
-                <tbody>
 
             <?php
+
             if(isset($_POST['langueNounou'])){
                 $langueNounou = $_POST['langueNounou'];
 
-                echo("<h2>$langueNounou</h2>");
+
                 $requete = "SELECT u.nom, u.prenom, n.age, n.annees_experience, n.presentation FROM LANGUES l, NOUNOU n, UTILISATEURS u WHERE l.langue=\"$langueNounou\" AND u.id_utilisateur=n.idNounou AND n.idNounou=l.idNounou;";
                 $resultat = mysqli_query($bdd, $requete);
 
@@ -124,6 +157,19 @@ include '../php/config.php';
 
 
             if ($resultat) {
+                echo("<table class=\"table\">
+                <thead>
+                <tr>
+                    <th scope=\"col\">Nom</th>
+                    <th scope=\"col\">Prénom</th>
+                    <th scope=\"col\">Age</th>
+                    <th scope=\"col\">Années d'expérience</th>
+                    <th scope=\"col\">Présentation</th>
+
+                </tr>
+                </thead>
+                <tbody>");
+
                 while ($listenounouslangue = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
                     $nom = $listenounouslangue['nom'];
                     $prenom = $listenounouslangue['prenom'];
@@ -148,7 +194,7 @@ include '../php/config.php';
 
                 </tbody>
             </table>
-
+        </div>
 
     </div>
 
