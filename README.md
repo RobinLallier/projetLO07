@@ -14,6 +14,9 @@
     
 
 ### Requêtes SQL à faire
+
+-Reservation associées à un parent.
+
 -Chiffre d'affaire du site sur une période
 Le salaire des nounous est de 7 € par heure commencée pour un enfant et avec 4 € supplémentaires par heure
 pour chaque enfant supplémentaire :

@@ -18,6 +18,7 @@ if( isset($_POST["login"]) && isset($_POST["password"])) {
 
         if(mysqli_num_rows($req) === 1) {
             $_SESSION['categorie']='admin';
+            $_SESSION['nom']=$_POST["login"];
             header("Location: http://localhost:8888/html/board_admin.php");
         }
         else{
