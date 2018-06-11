@@ -54,51 +54,56 @@ include '../php/config.php';
         </nav>
         <hr class="my-4">
 
-        <section class="container">
-
+        <section class="container mt-1 mb-5">
+            <h2 class="h3 lead">Rechercher une Nounou</h2>
+            <br>
             <!-- RECHERCHER NOUNOU-->
-            <form class="form" method="POST" action="board_admin.php">
-                <input class="form-control" type="text" name="nomNounou" value="Nom de la nounou">
-                <input class="btn btn-primary" type="submit" value="Rechercher">
+            <form class="form row" method="POST" action="board_admin.php">
+                <input class="form-control col-md-9" type="text" name="nomNounou" value="Nom de la nounou">
+                <br>
+                <input class="btn btn-primary col-md-2 offset-md-1" type="submit" value="Rechercher">
             </form>
 
             <!-- TABLEAU PROFIL NOUNOU -->
-
-            <?php
-
-
-            if(isset($_POST['nomNounou'])){
-                $nom = $_POST['nomNounou'];
-                $requete = "SELECT e.num_resa, e.note, e.commentaire
-FROM EVALUATION e, RESERVATIONS r, UTILISATEURS u 
-WHERE e.num_resa = r.num_resa AND r.idNounou = u.id_utilisateur AND u.nom =\"$nom\";";
-                $resultat = mysqli_query($bdd, $requete);
-
-                echo("<div class=\"card\" style=\"width: 18rem;\">
-                    <img class=\"card-img-top\" src=\".../100px180/?text=Image cap\" alt=\"Card image cap\">
-                          <div class=\"card-body\">
-                             <h5 class=\"card-title\">".$nom."</h5>
-                             <p class=\"card-text\">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                           </div>
-                                <ul class=\"list-group list-group-flush\">");
-
-                if ($resultat) {
-                    while($nounou = mysqli_fetch_array($resultat, MYSQLI_ASSOC)){
-                        $resaNounou = $nounou['num_resa'];
-                        $noteNounou = $nounou['note'];
-                        $commentaireNounou = $nounou['commentaire'];
-                        echo("<li class=\"list-group-item\>".$resaNounou."</li>");
-                        echo("<li class=\"list-group-item\>".$noteNounou."</li>");
-                        echo("<li class=\"list-group-item\>".$commentaireNounou."</li>");
-                        echo("</ul></div>");
+            <div class="container">
 
 
+                <?php
 
+
+                if(isset($_POST['nomNounou']) && (!$_POST['nomNounou'] === '')){
+                    $nom = $_POST['nomNounou'];
+                    $requete = "SELECT e.num_resa, e.note, e.commentaire
+    FROM EVALUATION e, RESERVATIONS r, UTILISATEURS u 
+    WHERE e.num_resa = r.num_resa AND r.idNounou = u.id_utilisateur AND u.nom =\"$nom\";";
+                    $resultat = mysqli_query($bdd, $requete);
+
+                    echo("<div class=\"card\" style=\"width: 18rem;\">
+                        <img class=\"card-img-top\" src=\".../100px180/?text=Image cap\" alt=\"Card image cap\">
+                              <div class=\"card-body\">
+                                 <h5 class=\"card-title\">".$nom."</h5>
+                                 <p class=\"card-text\">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                               </div>
+                                    <ul class=\"list-group list-group-flush\">");
+
+                    if ($resultat) {
+                        while($nounou = mysqli_fetch_array($resultat, MYSQLI_ASSOC)){
+                            $resaNounou = $nounou['num_resa'];
+                            $noteNounou = $nounou['note'];
+                            $commentaireNounou = $nounou['commentaire'];
+                            echo("<li class=\"list-group-item\>".$resaNounou."</li>");
+                            echo("<li class=\"list-group-item\>".$noteNounou."</li>");
+                            echo("<li class=\"list-group-item\>".$commentaireNounou."</li>");
+                            echo("</ul></div>");
+
+
+
+                        }
                     }
-                }
 
-            }
-            ?>
+                }
+                ?>
+            </div>
 
 
 
@@ -107,7 +112,7 @@ WHERE e.num_resa = r.num_resa AND r.idNounou = u.id_utilisateur AND u.nom =\"$no
 
         <div id="gestion-nounou" class="hidden">
 
-            <section>
+            <section class="my-3">
             <!--Nombre de nounous inscrites et acceptées-->
                 <?php
 
@@ -127,13 +132,7 @@ WHERE e.num_resa = r.num_resa AND r.idNounou = u.id_utilisateur AND u.nom =\"$no
 
             </section>
 
-            <ul class="nav">
-                <li class="nav-item mr-2"><button type="button" class="btn btn-info">Traiter les candidatures</button></li>
-                <li class="nav-item mr-2"><button type="button" class="btn btn-info">Voir les nounous</button></li>
-
-            </ul>
-
-            <section id="candidature" class="hidden">
+            <section id="candidature my-3">
                 <!-- NOUNOUS CANDIDATES -->
 
 
@@ -207,57 +206,62 @@ WHERE e.num_resa = r.num_resa AND r.idNounou = u.id_utilisateur AND u.nom =\"$no
             </section>
 
 
+            <section id="vue-nounou my-3">
+
+            <h2 class="h3">Liste des nounous</h2>
+            <!-- TABLEAU POUR REVENUS PAR NOUNOUS -->
+
+                <?php
+                $requete = "SELECT idNounou, revenus, blocage FROM NOUNOU WHERE candidature = 0 ORDER BY revenus DESC;";
+                $resultat = mysqli_query($bdd, $requete);
+
+                if ($resultat) {
+                    echo("
+                        <table class=\"table\">
+                            <thead>
+                            <tr>
+                                <th scope=\"col\">idNounou</th>
+                                <th scope=\"col\">Revenus</th>
+                                <th scope=\"col\">Etat</th>
+                                <th scope=\"col\">Modération</th>
+                
+                            </tr>
+                            </thead>
+                            <tbody>");
+
+                    while($revenusnounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)){
+                        $idNounou = $revenusnounous['idNounou'];
+                        $revenu = $revenusnounous['revenus'];
+                        $blocage = $revenusnounous['blocage'];
+
+                        echo("<tr><td>".$idNounou."</td>");
+                        echo("<td>".$revenu."</td>");
+                        if($blocage == false){
+                            echo ("<td></td>");
+                        } elseif($blocage = true){
+                            echo("<td>Bloquée</td>");
+                        }
+                        if ($blocage == false){
+                            echo ("<td><button type=\"button\" class=\"btn btn-danger\">Bloquer</button></td></tr>");
+                        } elseif ($blocage == true){
+                            echo ("<td><button type=\"button\" class=\"btn btn-success\">Débloquer</button></td></tr>");
+                        }
+
+                    }
+                    echo("</tbody>
+                </table>");
+                }
+                }
+
+
+
+                ?>
+
+
+            </section>
 
         </div>
 
-        <!-- TABLEAU POUR REVENUS PAR NOUNOUS -->
-
-            <?php
-            $requete = "SELECT idNounou, revenus, blocage FROM NOUNOU WHERE candidature = 0 ORDER BY revenus DESC;";
-            $resultat = mysqli_query($bdd, $requete);
-
-            if ($resultat) {
-                echo("
-                    <table class=\"table\">
-                        <thead>
-                        <tr>
-                            <th scope=\"col\">idNounou</th>
-                            <th scope=\"col\">Revenus</th>
-                            <th scope=\"col\">Etat</th>
-                            <th scope=\"col\">Modération</th>
-            
-                        </tr>
-                        </thead>
-                        <tbody>");
-
-                while($revenusnounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)){
-                    $idNounou = $revenusnounous['idNounou'];
-                    $revenu = $revenusnounous['revenus'];
-                    $blocage = $revenusnounous['blocage'];
-
-                    echo("<tr><td>".$idNounou."</td>");
-                    echo("<td>".$revenu."</td>");
-                    if($blocage == false){
-                        echo ("<td></td>");
-                    } elseif($blocage = true){
-                        echo("<td>Bloquée</td>");
-                    }
-                    if ($blocage == false){
-                        echo ("<td><button type=\"button\" class=\"btn btn-danger\">Bloquer</button></td></tr>");
-                    } elseif ($blocage == true){
-                        echo ("<td><button type=\"button\" class=\"btn btn-success\">Débloquer</button></td></tr>");
-                    }
-
-                }
-
-            }}
-
-
-
-            ?>
-
-            </tbody>
-        </table>
 
 
         <!-- =============================-->

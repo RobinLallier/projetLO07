@@ -1,8 +1,8 @@
-function affiche(nomClasse) {
+function affiche(nomId) {
 
 
 
-    let div = document.getElementById(nomClasse);
+    let div = document.getElementById(nomId);
 
     let activeDiv = document.getElementsByClassName("visible");
     let i = 0;
