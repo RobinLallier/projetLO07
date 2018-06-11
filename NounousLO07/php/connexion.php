@@ -14,7 +14,6 @@ if( isset($_POST["login"]) && isset($_POST["password"])) {
     $result1 = mysqli_query($bdd, "SELECT * FROM UTILISATEURS WHERE login='$login'; ");
     $resultat = mysqli_fetch_array($result1, MYSQLI_ASSOC);
     $isPasswordCorrect = password_verify($password, $resultat['mdp']);
-    //$password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
 
     if( mysqli_num_rows($result1) === 1 && $isPasswordCorrect){
