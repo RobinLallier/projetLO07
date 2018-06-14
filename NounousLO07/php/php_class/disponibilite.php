@@ -14,7 +14,7 @@ class Disponibilite
     private $jour;
     private $heureDebut;
     private $heureFin;
-    private $reccurent;
+    private $recurrent;
     private $date;
 
     /**
@@ -24,7 +24,20 @@ class Disponibilite
      * @param $heureDebut
      * @param $heureFin
      */
-    public function __construct($idnounou, $date, $heureDebut, $heureFin)
+    public function __construct(){
+        $ctp = func_num_args();
+        $args = func_get_args();
+        switch($ctp){
+            case 4 :
+                $this->dispo_ponctu($args[0], $args[1], $args[2], $args[3]);
+                break;
+            case 5 :
+                $this->dispo_recu($args[0], $args[1], $args[2], $args[3], $args[4]);
+                break;
+            default : break;
+        }
+    }
+    private function dispo_ponctu($idnounou, $date, $heureDebut, $heureFin)
     {
         $this->idnounou = $idnounou;
         $this->date = $date;
@@ -32,23 +45,48 @@ class Disponibilite
         $this->heureFin = $heureFin;
     }
 
-    public function toSQLString(){
-        $string = "(idnounou, heure_debut, heure_fin, date) 
-        VALUES ('".$this->getIdnounou()
-            ."', '".$this->getHeureDebut()
-            ."', '".$this->getHeureFin()
-            ."', '".$this->getDate()."')";
+    private function dispo_recu($idnounou, $jour, $heureDebut, $heureFin, $recurrent)
+    {
+        $this->idnounou = $idnounou;
+        $this->jour = $jour;
+        $this->heureDebut = $heureDebut;
+        $this->heureFin = $heureFin;
+        $this->recurrent = $recurrent;
+    }
 
+    public function toSQLString($recu){
+        if($recu){
+            $string = "(idnounou, jour, heure_debut, heure_fin, recurrence) 
+        VALUES ('".$this->getIdnounou()
+                ."', '".$this->getJour()
+                ."', '".$this->getHeureDebut()
+                ."', '".$this->getHeureFin()
+                ."', '".$this->getRecurrent()."')";
+
+        }
+        else{
+            $string = "(idnounou, heure_debut, heure_fin, date) 
+        VALUES ('".$this->getIdnounou()
+                ."', '".$this->getHeureDebut()
+                ."', '".$this->getHeureFin()
+                ."', '".$this->getDate()."')";
+        }
         return $string;
     }
 
 
-    public function addToDatabase($bdd){
-
-        $SQLstring = $this->toSQLString();
-        biblioSQL::insertIntoTable($bdd, TABLEDISPO, $SQLstring);
+    public function addToDatabase($bdd, $recu){
+        if($recu){
+            $SQLstring = $this->toSQLString($recu);
+            biblioSQL::insertIntoTable($bdd, TABLEDISPO, $SQLstring);
+        }
+        else{
+            $SQLstring = $this->toSQLString(false);
+            biblioSQL::insertIntoTable($bdd, TABLEDISPO, $SQLstring);
+        }
 
     }
+
 
     /**
      * @return mixed
@@ -117,17 +155,17 @@ class Disponibilite
     /**
      * @return mixed
      */
-    public function getReccurent()
+    public function getRecurrent()
     {
-        return $this->reccurent;
+        return $this->recurrent;
     }
 
     /**
-     * @param mixed $reccurent
+     * @param mixed $recurrent
      */
-    public function setReccurent($reccurent)
+    public function setRecurrent($recurrent)
     {
-        $this->reccurent = $reccurent;
+        $this->recurrent = $recurrent;
     }
 
     /**
