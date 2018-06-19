@@ -5,7 +5,7 @@
  * Date: 16/05/2018
  * Time: 12:47
  */
-include ("biblioSQL.php");
+
 
 define('TABLENOUNOU', 'NOUNOU');
 
@@ -51,7 +51,7 @@ class Nounou
     }
 
     public function addToDatabase($bdd){
-
+        require_once ("biblioSQL.php");
         $SQLstring = $this->toSQLString();
         biblioSQL::insertIntoTable($bdd, TABLENOUNOU, $SQLstring);
 

@@ -11,7 +11,7 @@
 </head>
 <body class="container-fluid">
 <header class="text-center container-fluid">
-    <a href="index.html" >
+    <a href="../index.html" >
         <img src="../img/rattle.png" class="float-left logo" alt="hochet">
     </a>
     <h1 class="titreaccueil">maNounou.com</h1>
@@ -63,7 +63,7 @@
          <input type="file" class="form-control" name="photo" placeholder="">
      </div>
          <div class="form-group">
-             <label for="experience">Années d'expérience</label>
+             <label for="nounou_experience">Années d'expérience</label>
              <input type="number" class="form-control" name="nounou_experience" placeholder="">
 
      <!--TODO Ajouter Langues Étrangères -->

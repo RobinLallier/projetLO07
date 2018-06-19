@@ -5,8 +5,7 @@
 ###TicketsList
     Header redirect sur l'accès involontaire vers une page interdite (board-admin.php)
     
-    -Disponibilité récurrente : mettre en place un système pour afficher chaque jour.
-    -Disponibilité : insérer les disponibilités dans la bdd
+   
     -Insérer Parent
     -Insérer Enfants
     -Insérer Recommandation
@@ -41,9 +40,9 @@ if($resultat){
 #Je sèche (associer un tel bouton à la nounou de la ligne)
 
 
+
 -Afficher les nounous disponibles en fonction d'un jour, d'une heure de début et d'une heure de fin et d'un code postal (potentiellement récurrent )
 #Pour l'instant j'ai fait le formulaire garde ponctuelle (de tel jour à telle heure... dans telle ville)
-
 
 
 ### BDD SQL

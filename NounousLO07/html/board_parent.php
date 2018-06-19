@@ -126,10 +126,8 @@ include '../php/config.php';
             </form>
 
 
-        </div>
 
 
-        <div>
 
             <table class="table">
                 <thead>
@@ -142,15 +140,14 @@ include '../php/config.php';
                     <th scope=\"col\">Disponibilités</th>
 
 
-                </tr>
-                </thead>
-                <tbody>
-
             <?php
+
             if(isset($_POST['langueNounou'])){
                 $langueNounou = $_POST['langueNounou'];
 
+
                 /*echo("<h2>$langueNounou</h2>");*/
+
                 $requete = "SELECT u.nom, u.prenom, n.age, n.annees_experience, n.presentation FROM LANGUES l, NOUNOU n, UTILISATEURS u WHERE l.langue=\"$langueNounou\" AND u.id_utilisateur=n.idNounou AND n.idNounou=l.idNounou;";
                 $resultat = mysqli_query($bdd, $requete);
 
@@ -159,6 +156,19 @@ include '../php/config.php';
 
 
             if ($resultat) {
+                echo("<table class=\"table\">
+                <thead>
+                <tr>
+                    <th scope=\"col\">Nom</th>
+                    <th scope=\"col\">Prénom</th>
+                    <th scope=\"col\">Age</th>
+                    <th scope=\"col\">Années d'expérience</th>
+                    <th scope=\"col\">Présentation</th>
+
+                </tr>
+                </thead>
+                <tbody>");
+
                 while ($listenounouslangue = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
                     $nom = $listenounouslangue['nom'];
                     $prenom = $listenounouslangue['prenom'];
@@ -184,7 +194,7 @@ include '../php/config.php';
 
                 </tbody>
             </table>
-
+        </div>
 
     </div>
 
