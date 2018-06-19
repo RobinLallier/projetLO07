@@ -2,6 +2,8 @@
 include "php_class/Utilisateur.php";
 include "config.php";
 include "php_class/Nounou.php";
+include "php_class/Parents.php";
+include "php_class/Enfant.php";
 //Hachage du mot de passe
 $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
@@ -23,12 +25,29 @@ echo("L'id utilisateur est le : ".$user->getIdUtilisateur());
        $nounou = new Nounou($user->getIdUtilisateur(), $_POST['photo'], $_POST['age'], $_POST['nounou_experience'], $_POST['description']);
        $nounou->addToDatabase($bdd);
 
-   }
-    elseif(isset($_POST["informations"]) && ($_POST["informations"] !== "")){
-       $parent = new Parent();
 
-    }
-  //header("Location : http://localhost:8888/index.html");
+       header("Location : http://localhost:8888/index.html");
+   }
+    elseif(isset($_POST["informations"])){
+
+       $parent = new Parents($user->getIdUtilisateur(), $_POST["informations"]);
+       $parent->addToDatabase($bdd);
+
+        $enfants = array (
+        "nom" => $_POST['enfant'],
+        "date_naissance" => $_POST['date_naissance'],
+        "restrictions_alim" => $_POST['restrictions_alim']);
+
+        $max = count($enfants);
+
+        for($i=0 ; $i < $max; $i++){
+            $j= $i;
+            $j = new Enfant($user->getIdUtilisateur(), $enfants["nom"][$i], $enfants["date_naissance"][$i], $enfants["restrictions_alim"][$i]);
+            $j->addToDatabase($bdd);
+        }
+
+}
+
 
 
 

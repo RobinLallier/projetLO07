@@ -6,12 +6,11 @@
  * Time: 18:24
  */
 
+define('TABLEPARENTS', 'PARENTS');
+
 class Parents
 {
     private $idparent;
-    private $nom;
-    private $ville;
-    private $email;
     private $info;
 
     /**
@@ -22,14 +21,28 @@ class Parents
      * @param $email
      * @param $info
      */
-    public function __construct($idparent, $nom, $ville, $email, $info)
+    public function __construct($idparent, $info)
     {
         $this->idparent = $idparent;
-        $this->nom = $nom;
-        $this->ville = $ville;
-        $this->email = $email;
         $this->info = $info;
     }
+
+    public function toSQLString(){
+        $string = "(idParents, informations) 
+        VALUES ('".$this->getIdparent().
+            "', '".$this->getInfo().
+           "')";
+
+        return $string;
+    }
+
+    public function addToDatabase($bdd){
+        require_once ("biblioSQL.php");
+        $SQLstring = $this->toSQLString();
+        biblioSQL::insertIntoTable($bdd, TABLEPARENTS, $SQLstring);
+
+    }
+
 
     /**
      * @return mixed

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/main.css">
 </head>
-<body class="container-fluid">
+<body class="">
     <header class="text-center container-fluid">
         <a href="../index.html" >
             <img src="../img/rattle.png" class="float-left logo" alt="hochet">
@@ -25,7 +25,7 @@
     </nav>
     <div class="row">
         <div class="jumbotron col-10 offset-md-1">
-            <form method="post" action="test.php">
+            <form method="post" action="../php/inscription.php">
                 <fieldset>
                     <legend>Veuillez rentrez les informations suivantes :</legend>
                     <div class="form-group">
@@ -54,9 +54,7 @@
                         <label>Numéro de téléphone</label>
                         <input type="text" class="form-control" name="telephone" placeholder="Votre numéro de portable">
 
-                        <label>Age</label>
-                        <input type="number" class="form-control" name="age" placeholder="">
-                        
+
                     </div>
                 </fieldset>
 
@@ -67,7 +65,7 @@
                     <small class="form-text text-muted">(rien de confidentiel, promis!)</small>
 
                     <label>Combien avez-vous d'enfants?</label>
-                    <select id="select-enfant" onchange="enfant()">
+                    <select class="form-control" id="select-enfant" onchange="enfant()">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -79,7 +77,7 @@
                 </fieldset>
                 <fieldset>
                     <div class="form-group">
-                        <label>Description</label>
+                        <label>Des précisions en plus?</label>
                         <input type="text" class="form-control" name="description" placeholder="">
                     </div>
 

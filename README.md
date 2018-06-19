@@ -5,8 +5,7 @@
 ###TicketsList
     Header redirect sur l'accès involontaire vers une page interdite (board-admin.php)
     
-    -Disponibilité récurrente : mettre en place un système pour afficher chaque jour.
-    -Disponibilité : insérer les disponibilités dans la bdd
+   
     -Insérer Parent
     -Insérer Enfants
     -Insérer Recommandation
@@ -22,7 +21,7 @@ pour chaque enfant supplémentaire :
 
 -Afficher toutes les disponibilités associées à une nounou.
 
--Afficher les nounous disponibles en fonction d'un jour, d'une heure de début et d'une heure de fin et d'un code postal (potentiellement récurrent )
+-Afficher les nounous disponibles en fonction d'un jour, d'une heure de début et d'une heure de fin et d'un code postal (potentiellement récurrent)
 -Afficher la liste des langues étrangères indiquées par les nounous
 
 
