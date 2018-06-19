@@ -4,6 +4,9 @@ include "config.php";
 include "php_class/Nounou.php";
 include "php_class/Parents.php";
 include "php_class/Enfant.php";
+
+print_r($_POST);
+
 //Hachage du mot de passe
 $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
@@ -30,6 +33,9 @@ echo("L'id utilisateur est le : ".$user->getIdUtilisateur());
    }
     elseif(isset($_POST["informations"])){
 
+
+        echo("<br><h2>On va au bon endroit</h2>");
+
        $parent = new Parents($user->getIdUtilisateur(), $_POST["informations"]);
        $parent->addToDatabase($bdd);
 
@@ -40,15 +46,18 @@ echo("L'id utilisateur est le : ".$user->getIdUtilisateur());
 
         $max = count($enfants);
 
-        for($i=0 ; $i < $max; $i++){
+        for($i=0 ; $i+1 < $max; $i++){
             $j= $i;
             $j = new Enfant($user->getIdUtilisateur(), $enfants["nom"][$i], $enfants["date_naissance"][$i], $enfants["restrictions_alim"][$i]);
             $j->addToDatabase($bdd);
         }
 
-}
+    }
+    else{
+       echo("<br><h2>On a un pb</h2>");
+    }
 
-
+echo("<br><h2>mauvaise structure</h2>");
 
 
 ?>

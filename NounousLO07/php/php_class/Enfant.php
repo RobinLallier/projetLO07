@@ -6,7 +6,7 @@
  * Time: 14:44
  */
 
-define('TABLEENFANT', 'ENFANT');
+define('TABLEENFANT', 'ENFANTS');
 class Enfant
 {
 
