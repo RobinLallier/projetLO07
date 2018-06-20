@@ -16,6 +16,10 @@ if( isset($_POST["login"]) && isset($_POST["password"])) {
     if( mysqli_num_rows($result1) === 1 && $isPasswordCorrect){
         session_start();
         if($resultat['admin'] === '1') {
+<<<<<<< HEAD
+=======
+
+>>>>>>> b1ec912aa702550339efaf744c32f93d14f69ff1
             $_SESSION['categorie']='admin';
             $_SESSION['nom']=$_POST["login"];
             header("Location: http://localhost:8888/html/board_admin.php");

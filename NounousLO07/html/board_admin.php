@@ -1,17 +1,37 @@
 <?php
+include '../php/config.php';
 session_start();
 //On vérifie que la session correspond bien à un admin, sinon on déconnecte l'utilisateur.
 if ($_SESSION['categorie'] !== 'admin') {
     session_destroy();
     header("Location: http://localhost:8888/index.html");
 }
+//Gestion des candidatures
+if (isset($_POST['accepter'])) {
+    $request = "UPDATE `NOUNOU` SET `candidature` = '0' WHERE `NOUNOU`.`idNounou` = " . key($_POST['accepter']) . ";";
+    $result = mysqli_query($bdd, $request);
+
+} elseif (isset($_POST['refuser'])) {
+    $request = "DELETE FROM `NOUNOU` WHERE `NOUNOU`.`idNounou` =" . key($_POST['refuser']) . ";";
+    $result = mysqli_query($bdd, $request);
+    $request = "DELETE FROM `LANGUES` WHERE `LANGUES`.`idNounou` =" . key($_POST['refuser']) . ";";
+    $result = mysqli_query($bdd, $request);
+    $request = "DELETE FROM `UTILISATEUR` WHERE `UTILISATEUR`.`id_utilisateur` =" . key($_POST['refuser']) . ";";
+    $result = mysqli_query($bdd, $request);
+}
+
+if(isset($_POST['bloquer'])){
+    $request = "UPDATE `NOUNOU` SET `blocage` = '1' WHERE `NOUNOU`.`idNounou` = " . key($_POST['bloquer']) . ";";
+    $result = mysqli_query($bdd, $request);
+} elseif (isset($_POST['debloquer'])){
+    $request = "UPDATE `NOUNOU` SET `blocage` = '0' WHERE `NOUNOU`.`idNounou` = " . key($_POST['debloquer']) . ";";
+    $result = mysqli_query($bdd, $request);
+}
 
 ?>
 
 <!DOCTYPE html>
-<?php
-include '../php/config.php';
-?>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -80,7 +100,10 @@ if (isset($_SESSION["nom"]))
 
             <?php
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b1ec912aa702550339efaf744c32f93d14f69ff1
             if (isset($_POST['nomNounou']) && ($_POST['nomNounou'] != '')) {
                 $nom = $_POST['nomNounou'];
                 $requete = "SELECT e.num_resa, e.note, e.commentaire
@@ -94,7 +117,11 @@ WHERE n.idNounou=u.id_utilisateur AND u.nom=\"$nom\"; ";
 
                 $resultatphoto = mysqli_fetch_row(mysqli_query($bdd, $requete2));
                 echo("<div class=\"card\" style=\"width: 18rem;\">
+<<<<<<< HEAD
                         <img class=\"card-img-top\" src=\"../img/".$resultatphoto[0]."\" alt=\"Card image cap\">
+=======
+                        <img class=\"card-img-top\" src=\"../100px180/?text=Image cap\" alt=\"Card image cap\">
+>>>>>>> b1ec912aa702550339efaf744c32f93d14f69ff1
                               <div class=\"card-body\">
                                  <h5 class=\"card-title\">" . $nom . "</h5>
                                  <p class=\"card-text\">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -135,7 +162,7 @@ WHERE n.idNounou=u.id_utilisateur AND u.nom=\"$nom\"; ";
             if ($resultat) {
                 $nbrnounous = mysqli_num_rows($resultat);
                 if ($nbrnounous != 0) {
-                    echo("<p class='h5'>Vous avez " . $nbrnounous . " nounous inscrites sur la plateforme.<br></p>");
+                    echo("<p class='h5'>Vous avez " . $nbrnounous . " nounou(s) inscrite(s) sur la plateforme.<br></p>");
                 } else {
                     echo("<p class='h5'>Aucune nounou n'est encore inscrite sur la plateforme.<br></p>");
                 }
@@ -174,14 +201,14 @@ WHERE n.idNounou=u.id_utilisateur AND u.nom=\"$nom\"; ";
             <!-- Affichage tableau des candidatures avec ajouter/supprimer-->
 
             <?php
-            $requete = "SELECT u.nom, u.prenom, n.age, n.annees_experience, n.presentation
+            $requete = "SELECT u.id_utilisateur, u.nom, u.prenom, n.age, n.annees_experience, n.presentation
                             FROM UTILISATEURS u, NOUNOU n
                             WHERE u.id_utilisateur=n.idNounou AND n.candidature = 1;";
             $resultat = mysqli_query($bdd, $requete);
 
             if (mysqli_num_rows($resultat) > 0) {
 
-            echo("<table class=\"table\">
+                echo("<table class=\"table\">
                     <thead>
                     <tr>
                         <th scope=\"col\">Nom</th>
@@ -195,23 +222,34 @@ WHERE n.idNounou=u.id_utilisateur AND u.nom=\"$nom\"; ";
                     </tr>
                     </thead>
                     <tbody>");
+                $i = 0;
 
-            while ($candidaturenounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
-                $nom = $candidaturenounous['nom'];
-                $prenom = $candidaturenounous['prenom'];
-                $age = $candidaturenounous['age'];
-                $experience = $candidaturenounous['annees_experience'];
-                $presentation = $candidaturenounous['presentation'];
+                while ($candidaturenounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
+                    $id = $candidaturenounous['id_utilisateur'];
+                    $nom = $candidaturenounous['nom'];
+                    $prenom = $candidaturenounous['prenom'];
+                    $age = $candidaturenounous['age'];
+                    $experience = $candidaturenounous['annees_experience'];
+                    $presentation = $candidaturenounous['presentation'];
 
-                echo("<tr><td>" . $nom . "</td>");
-                echo("<td>" . $prenom . "</td>");
-                echo("<td>" . $age . "</td>");
-                echo("<td>" . $experience . "</td>");
-                echo("<td>" . $presentation . "</td>");
-                echo("<td><button type=\"button\" class=\"btn btn-outline-info\">Accepter</button>&nbsp;<button type=\"button\" class=\"btn btn-outline-warning\">Refuser</button></td></tr>");
+                    echo("<tr><td>" . $nom . "</td>");
+                    echo("<td>" . $prenom . "</td>");
+                    echo("<td>" . $age . "</td>");
+                    echo("<td>" . $experience . "</td>");
+                    echo("<td>" . $presentation . "</td>");
+                    echo("<td>
+                            <form method='post' action='board_admin.php'>
+                                <input type='submit' name='accepter[" . $id . "]' id='nom' class=\"btn btn-outline-info\" value='Accepter'>
+                                <input type='submit' name='refuser[" . $id . "]' id='nom' class=\"btn btn-outline-warning\" value='Refuser'>
+                            </form>
+                          </td>
+                    </tr>");
+
+                }
                 echo("</tbody>
                 </table>");
             }
+
             ?>
 
 
@@ -248,21 +286,22 @@ WHERE n.idNounou=u.id_utilisateur AND u.nom=\"$nom\"; ";
 
                     echo("<tr><td>" . $idNounou . "</td>");
                     echo("<td>" . $revenu . "</td>");
-                    if ($blocage == false) {
+                    if ($blocage == '0') {
                         echo("<td></td>");
-                    } elseif ($blocage = true) {
+                    } elseif ($blocage = '1') {
                         echo("<td>Bloquée</td>");
                     }
-                    if ($blocage == false) {
-                        echo("<td><button type=\"button\" class=\"btn btn-danger\">Bloquer</button></td></tr>");
-                    } elseif ($blocage == true) {
-                        echo("<td><button type=\"button\" class=\"btn btn-success\">Débloquer</button></td></tr>");
+                    echo("<form method='post' action='board_admin.php'>");
+                    if ($blocage == '0') {
+                        echo("<td><input type='submit' name='bloquer[".$idNounou."]' class=\"btn btn-danger\" value='Bloquer'></td></tr>");
+                    } elseif ($blocage == '1') {
+                        echo("<td><input type='submit' name='debloquer[".$idNounou."]' class=\"btn btn-danger\" value='Débloquer'></td></tr>");
                     }
 
                 }
                 echo("</tbody>
                 </table>");
-            }
+
             }
 
 
