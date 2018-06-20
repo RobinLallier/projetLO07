@@ -2,23 +2,22 @@
 include 'config.php';
 session_start();
 
+print_r($_POST);
 //Vérification de la validité des informations entrées
 if( isset($_POST["login"]) && isset($_POST["password"])) {
 
     $login = $_POST["login"];
 
-
-
     //Vérification du mot de passe
     $password = $_POST["password"];
     $result1 = mysqli_query($bdd, "SELECT * FROM UTILISATEURS WHERE login='$login'; ");
+
     $resultat = mysqli_fetch_array($result1, MYSQLI_ASSOC);
     $isPasswordCorrect = password_verify($password, $resultat['mdp']);
 
-
     if( mysqli_num_rows($result1) === 1 && $isPasswordCorrect){
 
-        if($resultat['admin'] === 1) {
+        if($resultat['admin'] === '1') {
             session_start();
             $_SESSION['categorie']='admin';
             $_SESSION['nom']=$_POST["login"];

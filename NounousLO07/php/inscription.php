@@ -10,6 +10,7 @@ print_r($_POST);
 //Hachage du mot de passe
 $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
+
 $user = new Utilisateur($_POST["nom"], $_POST["prenom"], $_POST["ville"]
     , $_POST["email"], $_POST["telephone"], $_POST["login"], $password);
 
@@ -29,7 +30,7 @@ echo("L'id utilisateur est le : ".$user->getIdUtilisateur());
        $nounou->addToDatabase($bdd);
 
 
-       header("Location : http://localhost:8888/index.html");
+       header("Location: http://localhost:8888/index.html");
    }
     elseif(isset($_POST["informations"])){
 
