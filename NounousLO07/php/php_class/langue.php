@@ -1,11 +1,12 @@
 <?php
+
+define('TABLELANGUE', 'LANGUES');
 /**
  * Created by PhpStorm.
  * User: Jarvis
  * Date: 16/05/2018
  * Time: 18:22
  */
-
 class Langue
 {
     private $idnounou;
@@ -20,6 +21,23 @@ class Langue
     {
         $this->idnounou = $idnounou;
         $this->langue = $langue;
+    }
+
+    public function toSQLString()
+    {
+        $string = "(idNounou, langue) 
+        VALUES ('" . $this->getIdnounou() .
+            "', '" . $this->getLangue() .
+            "')";
+
+        return $string;
+    }
+
+    public function addToDatabase($bdd)
+    {
+        require_once("biblioSQL.php");
+        $SQLstring = $this->toSQLString();
+        biblioSQL::insertIntoTable($bdd, TABLELANGUE, $SQLstring);
     }
 
     /**

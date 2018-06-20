@@ -1,8 +1,10 @@
 <?php
-include "php_class/Utilisateur.php";
+
 include "config.php";
+include "php_class/Utilisateur.php";
 include "php_class/Nounou.php";
-include "php_class/Parents.php";
+include "php_class/Langue.php";
+include "php_class/Parent.php";
 include "php_class/Enfant.php";
 
 print_r($_POST);
@@ -25,7 +27,8 @@ if (isset($_POST["nounou_experience"]) && ($_POST["nounou_experience"] !== "")) 
 
     $langues = $_POST['langue'];
     foreach($langues as $langue){
-
+        $j = new Langue($user->getIdUtilisateur(), $langue);
+        $j->addToDatabase($bdd);
     }
 
     header("Location: http://localhost:8888/index.html");
@@ -50,7 +53,7 @@ elseif (isset($_POST["informations"])) {
     }
 
 } else {
-
+    echo("<h2>Votre formulaire a été mal rempli. Veuillez recommencer SVP.</h2>");
 }
 
 

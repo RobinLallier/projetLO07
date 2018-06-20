@@ -40,7 +40,7 @@ class Nounou
 
 
     public function toSQLString(){
-        $string = "(idNounou, lien_photo, age, annee_experience, presentation) 
+        $string = "(idNounou, lien_photo, age, annees_experience, presentation) 
         VALUES ('".$this->getIdNounou().
             "', '".$this->getPhoto().
             "', '".$this->getAge().

@@ -7,9 +7,6 @@ if ($_SESSION['categorie'] !== 'nounou') {
     session_destroy();
     header("Location: http://localhost:8888/index.html");
 }
-print_r($_SESSION);
-echo(crlf);
-print_r($_POST);
 $ajout = false;
 
 if (isset($_POST["date"]) && !empty($_POST["date"])) {
