@@ -12,11 +12,15 @@ header{
     font-family: "Arial Narrow";
 }
 
-a {
+a.nav-item{
     text-decoration: none;
     color: white;
 }
 
+a {
+    text-decoration: none;
+    color: white;
+}
 .lead {
     font-style: italic;
     font-family: Casual;

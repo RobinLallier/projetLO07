@@ -168,6 +168,8 @@ WHERE n.idNounou=u.id_utilisateur AND u.nom=\"$nom\"; ";
             }
             ?>
 
+
+
             <br/>
             <!-- Affichage tableau des candidatures avec ajouter/supprimer-->
 
