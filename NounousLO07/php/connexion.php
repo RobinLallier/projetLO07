@@ -1,8 +1,6 @@
 <?php
 include 'config.php';
-session_start();
 
-print_r($_POST);
 //Vérification de la validité des informations entrées
 if( isset($_POST["login"]) && isset($_POST["password"])) {
 
@@ -16,9 +14,8 @@ if( isset($_POST["login"]) && isset($_POST["password"])) {
     $isPasswordCorrect = password_verify($password, $resultat['mdp']);
 
     if( mysqli_num_rows($result1) === 1 && $isPasswordCorrect){
-
+        session_start();
         if($resultat['admin'] === '1') {
-            session_start();
             $_SESSION['categorie']='admin';
             $_SESSION['nom']=$_POST["login"];
             header("Location: http://localhost:8888/html/board_admin.php");

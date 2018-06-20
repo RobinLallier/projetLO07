@@ -19,9 +19,15 @@
     <h2 class="lead">Le meilleur site de recherche de nounous</h2>
 </header>
 <nav class="nav justify-content-end">
-    <a href="php/login.php" class="nav-item ">Se Connecter</a>
+    <button type="button" class="btn btn-danger"><a href="php/login.php" class="nav-item">Se Connecter</a></button>
+
+    <p class="nav-item mr-2">
+        <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Informations</button>
+    </p>
 
 </nav>
+
+
 <div class="container-bouton">
     <div class="row">
         <section class="bouton-parent offset-md-1 offset-sm-1 col-10 col-md-5 text-center jumbotron">
@@ -43,10 +49,17 @@
     </div>
 </div>
 
+<div id="informations" class="hidden">
+    maNounou.com vous permet d'accéder à une base de nounous disponibles dans votre ville pour garder vos enfants à toute heure du jour et de la nuit !
+
+    </div>
+
+
+</div>
 <div>
     <a href="html/board_parent.php">Lien board parents</a>
 </div>
-
+<script src="js/affiche.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

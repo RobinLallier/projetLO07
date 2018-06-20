@@ -10,11 +10,11 @@ class biblioSQL{
 
 
 
-        if (mysqli_query($bdd, $request)) {
+        /*if (mysqli_query($bdd, $request)) {
             echo "New record into $table created successfully";
         } else {
             echo "Error: " . $request . "<br>" . mysqli_error($bdd);
-        }
+        }*/
     }
 
 
@@ -22,7 +22,7 @@ class biblioSQL{
         $request = "SELECT ".$needle." FROM ".$table." WHERE ".$cle."='".$valeur."';";
 
         $tuple = mysqli_query($bdd, $request);
-        if($tuple){
+       if($tuple){
             $result = mysqli_fetch_array($tuple, MYSQLI_ASSOC);
         }
 
