@@ -72,7 +72,7 @@ if ($ajout) {
         </button>
         <div class="collapse navbar-collapse ">
             <div class="navbar-nav">
-                <p class="nav-item mr-2">
+                <p class="nav-item ml-4 mr-2">
                     <button type="button" id="nounou" class="btn btn-outline-info" onclick=affiche("dispo-simple")>
                         Ajouter une disponibilité ponctuelle
                     </button>
@@ -86,6 +86,11 @@ if ($ajout) {
                     <button type="button" id="ca" class="btn btn-outline-info" onclick=affiche("planning")>Voir
                         Planning
                     </button>
+                </p>
+                <p class="nav-item mr-2">
+                    <a href="../php/deconnexion.php" ><button type="button" id="nounou" class="btn btn-outline-info">
+                            Déconnexion
+                        </button></a>
                 </p>
             </div>
         </div>
@@ -256,37 +261,51 @@ if ($ajout) {
     </div>
 
 
-    <div id="planning" class="hidden">
+    <div id="planning" class="visible">
 
-        <h2 class="h3 lead">Votre planning</h2>
+        <h2 class="h3 py-4 lead">Votre planning</h2>
+
 
         <?php
 
-        $requete = "SELECT r.num_resa, r.type_resa, u.nom FROM RESERVATION as r, UTILISATEUR as u, PARENT as p WHERE r.idNounou='" . $_SESSION['id'] . "',  = 0 ;";
+        $requete = "SELECT r.num_resa, r.type_resa, r.heure_debut, r.heure_fin, r.jour, r.date, u.nom, u.prenom 
+                    FROM RESERVATIONS as r, UTILISATEURS as u, PARENTS as p 
+                    WHERE r.idNounou='" . $_SESSION['id'] . "'
+                    AND r.idParents = p.idParents
+                    AND p.idParents = u.id_utilisateur";
+        
         $resultat = mysqli_query($bdd, $requete);
+
 
         if ($resultat) {
             echo("
-                        <table class=\"table\">
+                <h5 class='py-4'> Vos réservations</h5>
+                        <table class='table'>
                             <thead>
                             <tr>
-                                <th scope=\"col\">idNounou</th>
-                                <th scope=\"col\">Revenus</th>
-                                <th scope=\"col\">Etat</th>
-                                <th scope=\"col\">Modération</th>
+                                <th scope='col'>Famille</th>
+                                <th scope='col'>Jour</th>
+                                <th scope='col'>Heure de début</th>
+                                <th scope='col'>Heure de Fin</th>
                 
                             </tr>
                             </thead>
                             <tbody>");
 
-            while ($revenusnounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
-                $idNounou = $revenusnounous['idNounou'];
-                $revenu = $revenusnounous['revenus'];
-                $blocage = $revenusnounous['blocage'];
+            while ($reservation = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
 
-                echo("<tr><td>" . $idNounou . "</td>");
-                echo("<td>" . $revenu . "</td>");
+                echo("<tr><td>" . $reservation['nom'] . "</td>");
+                if (!empty($reservation['jour'])){
+                    echo("<td>" . $reservation['jour'] . "</td>");
+                }
+                else {
+                    echo("<td>" . $reservation['date'] . "</td>");
+                }
+                echo("<td>" . $reservation['heure_debut'] . "</td>");
+                echo("<td>" . $reservation['heure_fin'] . "</td></tr>");
             }
+            echo("</tbody>
+                    </table>");
         }
         ?>
 

@@ -40,7 +40,7 @@ include '../php/config.php';
         </button>
         <div class="collapse navbar-collapse ">
             <div class="navbar-nav">
-                <p class="nav-item mr-2">
+                <p class="nav-item ml-4 mr-2">
                     <button type="button" id="nounou" class="btn btn-outline-info" onclick=affiche("garde-ponctuelle")>
                         Garde Ponctuelle
                     </button>
@@ -55,6 +55,16 @@ include '../php/config.php';
                         Étrangère
                     </button>
                 </p>
+                <p class="nav-item mr-2">
+                    <button type="button" id="nounou" class="btn btn-outline-info" onclick=affiche("section-reservation")>
+                        Mes réservations
+                    </button>
+                </p>
+                <p class="nav-item mr-2">
+                    <a href="../php/deconnexion.php" ><button type="button" id="nounou" class="btn btn-outline-info">
+                            Déconnexion
+                        </button></a>
+                </p>
             </div>
         </div>
 
@@ -62,7 +72,23 @@ include '../php/config.php';
     <hr class="my-4">
 
 
-    <div class="section-reservation visible">
+    <?php
+    if(isset($_POST['eval'])){
+        $request = "INSERT INTO EVALUATION(num_resa, note, commentaire) VALUES ('".$_POST['num_resa']."', '".$_POST['note']."', '".$_POST['commentaire']."')";
+
+        if($result = mysqli_query($bdd, $request)){
+            echo("<div class='alert alert-success' role='alert'>
+                        Votre évaluation a été correctement ajouté à votre nounou. Merci!
+                    </div>");
+        }
+
+
+    }
+
+
+    ?>
+
+    <div id='section-reservation' class="visible">
         <?php
 
         $request = "SELECT DISTINCT u.nom, u.prenom, r.heure_debut, r.heure_fin, r.type_resa, r.jour, r.date, r.num_resa
@@ -100,7 +126,7 @@ include '../php/config.php';
                 echo("<td>
                         <form method='post' action='board_parent.php'>
                         <input type='hidden' name='num_resa' value='".$result['num_resa']."' >
-                        <select name='heure_debut' class='form-control '>
+                        <select name='note' class='form-control '>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>

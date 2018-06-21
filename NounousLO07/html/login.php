@@ -27,7 +27,7 @@
 </nav>
 <div class="row">
     <div class="jumbotron col-10 offset-md-1">
-        <form method="post" action="connexion.php">
+        <form method="post" action="../php/connexion.php">
             <div class="form-group">
                 <label for="login">Login</label>
                 <input type="text" class="form-control" name="login" placeholder="Votre login">

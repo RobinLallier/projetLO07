@@ -1,5 +1,5 @@
 header{
-    background-color: #f21e67;
+    background-color: #FF8FAB;
     color : white;
     /*height : 30vh;*/
     min-height: 150px;
@@ -10,6 +10,10 @@ header{
 .titreaccueil{
     padding-top: 40px;
     font-family: "Arial Narrow";
+}
+
+#bootstrap-override jumbotron{
+    background-color : #CFF1FC;
 }
 
 a.nav-item{

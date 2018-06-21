@@ -58,7 +58,7 @@ if(isset($_POST)){
 </header>
 <?php
 if (isset($_SESSION["nom"]))
-    echo("<div class=\"alert alert-info\" role=\"alert\">
+    echo("<div class='alert alert-info' role='alert'>
             Bienvenue à vous " . $_SESSION['nom'] . ", que voulez-vous faire?
         </div>");
 ?>
@@ -73,7 +73,7 @@ if (isset($_SESSION["nom"]))
         </button>
         <div class="collapse navbar-collapse float-right">
             <div class="navbar-nav">
-                <p class="nav-item mr-2">
+                <p class="nav-item ml-4 mr-2">
                     <button type="button" id="nounou" class="btn btn-outline-info" onclick=affiche("gestion-nounou")>
                         Gestion des nounous
                     </button>
@@ -82,6 +82,11 @@ if (isset($_SESSION["nom"]))
                     <button type="button" id="ca" class="btn btn-outline-info" onclick=affiche("chiffre-affaire")>
                         Chiffre d'affaire
                     </button>
+                </p>
+                <p class="nav-item mr-2">
+                    <a href="../php/deconnexion.php" ><button type="button" id="nounou" class="btn btn-outline-info">
+                        Déconnexion
+                        </button></a>
                 </p>
             </div>
         </div>
@@ -105,42 +110,35 @@ if (isset($_SESSION["nom"]))
 
             <?php
 
-<<<<<<< HEAD
 
-=======
->>>>>>> b1ec912aa702550339efaf744c32f93d14f69ff1
             if (isset($_POST['nomNounou']) && ($_POST['nomNounou'] != '')) {
                 $nom = $_POST['nomNounou'];
                 $requete = "SELECT e.num_resa, e.note, e.commentaire
     FROM EVALUATION e, RESERVATIONS r, UTILISATEURS u 
-    WHERE e.num_resa = r.num_resa AND r.idNounou = u.id_utilisateur AND u.nom =\"$nom\";";
+    WHERE e.num_resa = r.num_resa AND r.idNounou = u.id_utilisateur AND u.nom =''$nom'';";
                 $resultat = mysqli_query($bdd, $requete);
 
                 $requete2 = "SELECT lien_photo
 FROM NOUNOU n, UTILISATEURS u
-WHERE n.idNounou=u.id_utilisateur AND u.nom=\"$nom\"; ";
+WHERE n.idNounou=u.id_utilisateur AND u.nom=''$nom''; ";
 
                 $resultatphoto = mysqli_fetch_row(mysqli_query($bdd, $requete2));
-                echo("<div class=\"card\" style=\"width: 18rem;\">
-<<<<<<< HEAD
-                        <img class=\"card-img-top\" src=\"../img/".$resultatphoto[0]."\" alt=\"Card image cap\">
-=======
-                        <img class=\"card-img-top\" src=\"../100px180/?text=Image cap\" alt=\"Card image cap\">
->>>>>>> b1ec912aa702550339efaf744c32f93d14f69ff1
-                              <div class=\"card-body\">
-                                 <h5 class=\"card-title\">" . $nom . "</h5>
-                                 <p class=\"card-text\">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                echo("<div class='card' style='width: 18rem;'>
+                        <img class='card-img-top' src=''../img/".$resultatphoto[0]."' alt='Card image cap'>
+                              <div class='card-body'>
+                                 <h5 class='card-title'>" . $nom . "</h5>
+                                 <p class='card-text'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                </div>
-                                    <ul class=\"list-group list-group-flush\">");
+                                    <ul class='list-group list-group-flush'>");
 
                 if ($resultat) {
                     while ($nounou = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
                         $resaNounou = $nounou['num_resa'];
                         $noteNounou = $nounou['note'];
                         $commentaireNounou = $nounou['commentaire'];
-                        echo("<li class=\"list-group-item\>" . $resaNounou . "</li>");
-                        echo("<li class=\"list-group-item\>" . $noteNounou . "</li>");
-                        echo("<li class=\"list-group-item\>" . $commentaireNounou . "</li>");
+                        echo("<li class='list-group-item\>" . $resaNounou . "</li>");
+                        echo("<li class='list-group-item\>" . $noteNounou . "</li>");
+                        echo("<li class='list-group-item\>" . $commentaireNounou . "</li>");
                         echo("</ul></div>");
 
 
@@ -213,15 +211,15 @@ WHERE n.idNounou=u.id_utilisateur AND u.nom=\"$nom\"; ";
 
             if (mysqli_num_rows($resultat) > 0) {
 
-                echo("<table class=\"table\">
+                echo("<table class='table'>
                     <thead>
                     <tr>
-                        <th scope=\"col\">Nom</th>
-                        <th scope=\"col\">Prénom</th>
-                        <th scope=\"col\">Age</th>
-                        <th scope=\"col\">Années d'expérience</th>
-                        <th scope=\"col\">Présentation</th>
-                        <th scope=\"col\">Modération</th>
+                        <th scope='col'>Nom</th>
+                        <th scope='col'>Prénom</th>
+                        <th scope='col'>Age</th>
+                        <th scope='col'>Années d'expérience</th>
+                        <th scope='col'>Présentation</th>
+                        <th scope='col'>Modération</th>
 
 
                     </tr>
@@ -244,8 +242,8 @@ WHERE n.idNounou=u.id_utilisateur AND u.nom=\"$nom\"; ";
                     echo("<td>" . $presentation . "</td>");
                     echo("<td>
                             <form method='post' action='board_admin.php'>
-                                <input type='submit' name='accepter[" . $id . "]' id='nom' class=\"btn btn-outline-info\" value='Accepter'>
-                                <input type='submit' name='refuser[" . $id . "]' id='nom' class=\"btn btn-outline-warning\" value='Refuser'>
+                                <input type='submit' name='accepter[" . $id . "]' id='nom' class='btn btn-outline-info' value='Accepter'>
+                                <input type='submit' name='refuser[" . $id . "]' id='nom' class='btn btn-outline-warning' value='Refuser'>
                             </form>
                           </td>
                     </tr>");
@@ -272,13 +270,13 @@ WHERE n.idNounou=u.id_utilisateur AND u.nom=\"$nom\"; ";
 
             if ($resultat) {
                 echo("
-                        <table class=\"table\">
+                        <table class='table'>
                             <thead>
                             <tr>
-                                <th scope=\"col\">idNounou</th>
-                                <th scope=\"col\">Revenus</th>
-                                <th scope=\"col\">Etat</th>
-                                <th scope=\"col\">Modération</th>
+                                <th scope='col'>idNounou</th>
+                                <th scope='col'>Revenus</th>
+                                <th scope='col'>Etat</th>
+                                <th scope='col'>Modération</th>
                 
                             </tr>
                             </thead>
@@ -298,9 +296,9 @@ WHERE n.idNounou=u.id_utilisateur AND u.nom=\"$nom\"; ";
                     }
                     echo("<form method='post' action='board_admin.php'>");
                     if ($blocage == '0') {
-                        echo("<td><input type='submit' name='bloquer[".$idNounou."]' class=\"btn btn-danger\" value='Bloquer'></td></tr>");
+                        echo("<td><input type='submit' name='bloquer[".$idNounou."]' class='btn btn-danger' value='Bloquer'></td></tr>");
                     } elseif ($blocage == '1') {
-                        echo("<td><input type='submit' name='debloquer[".$idNounou."]' class=\"btn btn-danger\" value='Débloquer'></td></tr>");
+                        echo("<td><input type='submit' name='debloquer[".$idNounou."]' class='btn btn-danger' value='Débloquer'></td></tr>");
                     }
 
                 }
