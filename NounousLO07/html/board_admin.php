@@ -105,6 +105,10 @@ if (isset($_SESSION["nom"]))
 
             <?php
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> b1ec912aa702550339efaf744c32f93d14f69ff1
             if (isset($_POST['nomNounou']) && ($_POST['nomNounou'] != '')) {
                 $nom = $_POST['nomNounou'];
                 $requete = "SELECT e.num_resa, e.note, e.commentaire
@@ -112,8 +116,17 @@ if (isset($_SESSION["nom"]))
     WHERE e.num_resa = r.num_resa AND r.idNounou = u.id_utilisateur AND u.nom =\"$nom\";";
                 $resultat = mysqli_query($bdd, $requete);
 
+                $requete2 = "SELECT lien_photo
+FROM NOUNOU n, UTILISATEURS u
+WHERE n.idNounou=u.id_utilisateur AND u.nom=\"$nom\"; ";
+
+                $resultatphoto = mysqli_fetch_row(mysqli_query($bdd, $requete2));
                 echo("<div class=\"card\" style=\"width: 18rem;\">
+<<<<<<< HEAD
+                        <img class=\"card-img-top\" src=\"../img/".$resultatphoto[0]."\" alt=\"Card image cap\">
+=======
                         <img class=\"card-img-top\" src=\"../100px180/?text=Image cap\" alt=\"Card image cap\">
+>>>>>>> b1ec912aa702550339efaf744c32f93d14f69ff1
                               <div class=\"card-body\">
                                  <h5 class=\"card-title\">" . $nom . "</h5>
                                  <p class=\"card-text\">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -186,6 +199,8 @@ if (isset($_SESSION["nom"]))
                 }
             }
             ?>
+
+
 
             <br/>
             <!-- Affichage tableau des candidatures avec ajouter/supprimer-->
@@ -308,7 +323,15 @@ if (isset($_SESSION["nom"]))
 
     <div id="chiffre-affaire" class="hidden">
         <!-- Insérer ici le php -->
-        <p>Vous avez gagné 10 000€ ce mois-ci.</p>
+
+            <?php
+            $chiffreaffaire ="SELECT SUM(revenus) FROM NOUNOU;";
+            $resultat = mysqli_fetch_row(mysqli_query($bdd, $chiffreaffaire));
+
+                echo("Votre chiffre d'affaire s'élève à : " .$resultat[0]. "€.");
+
+            ?>
+
     </div>
 
 

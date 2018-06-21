@@ -11,9 +11,24 @@ header{
     padding-top: 40px;
     font-family: "Arial Narrow";
 }
+
+a.nav-item{
+    text-decoration: none;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
 .lead {
     font-style: italic;
     font-family: Casual;
+}
+
+.informations {
+    height: 50px;
+    background-color: aqua;
 }
 
 .container-bouton{

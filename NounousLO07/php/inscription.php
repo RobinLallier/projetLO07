@@ -7,8 +7,6 @@ include "php_class/Langue.php";
 include "php_class/Parent.php";
 include "php_class/Enfant.php";
 
-print_r($_POST);
-
 //Hachage du mot de passe
 $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
