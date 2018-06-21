@@ -9,17 +9,27 @@ if ($_SESSION['categorie'] !== 'nounou') {
 }
 $ajout = false;
 
-if (isset($_POST["date"]) && !empty($_POST["date"])) {
-    $dispo_ponctu = new Disponibilite($_SESSION["id"], $_POST["date"], $_POST["heure-debut"], $_POST["heure-fin"]);
-    $dispo_ponctu->addToDatabase($bdd, false);
-    $ajout = true;
-} elseif (isset($_POST["jour"]) && !empty($_POST["jour"])) {
-    foreach ($_POST["jour"] as $jour) {
-        $dispo_recu = new Disponibilite($_SESSION["id"], $_POST["jour"][0], $_POST["heure-debut"], $_POST["heure-fin"], 1);
-        $dispo_recu->addToDatabase($bdd, true);
+
+if(isset($_POST)){
+    if (isset($_POST["date"]) && !empty($_POST["date"])) {
+        $dispo_ponctu = new Disponibilite($_SESSION["id"], $_POST["date"], $_POST["heure-debut"], $_POST["heure-fin"]);
+        $dispo_ponctu->addToDatabase($bdd, false);
         $ajout = true;
+
+
+
+    } elseif (isset($_POST["jour"]) && !empty($_POST["jour"])) {
+        foreach ($_POST["jour"] as $jour) {
+            $dispo_recu = new Disponibilite($_SESSION["id"], $_POST["jour"][0], $_POST["heure-debut"], $_POST["heure-fin"], 1);
+            $dispo_recu->addToDatabase($bdd, true);
+            $ajout = true;
+
+        }
     }
+
+    $_POST = array();
 }
+
 
 
 ?>
@@ -131,6 +141,12 @@ if ($ajout) {
                         <option>20</option>
                         <option>21</option>
                         <option>22</option>
+                        <option>23</option>
+                        <option>24</option>
+                        <option>00</option>
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
                     </select>
                 </div>
             </div>

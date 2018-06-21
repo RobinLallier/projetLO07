@@ -62,6 +62,277 @@ include '../php/config.php';
     <hr class="my-4">
 
 
+    <div class="section-reservation visible">
+        <?php
+
+        $request = "SELECT DISTINCT u.nom, u.prenom, r.heure_debut, r.heure_fin, r.type_resa, r.jour, r.date, r.num_resa
+                    FROM RESERVATIONS as r, PARENTS as p, UTILISATEURS as u
+                    WHERE r.idParents = '".$_SESSION['id']."' 
+                    AND u.id_utilisateur = r.idNounou";
+        $request = mysqli_query($bdd, $request);
+        if( mysqli_num_rows($request) >= 1){
+
+            echo ("<h2 class='py-4'> Vos Réservations</h2>");
+
+            echo("<table class='table'>
+                    <thead>
+                    <tr>
+                        <th scope='col'>Nom de la Nounou</th>
+                        <th scope='col'>Jour de la garde</th>
+                        <th scope='col'>Heure de début</th>
+                        <th scope='col'>Heure de fin</th>
+                        <th scope='col'>Note</th>
+                        <th scope='col'>Commentaire</th>
+                        <th scope='col'>Évaluer</th>
+                    </tr>
+                    </thead>
+                    <tbody>");
+            while($result= mysqli_fetch_array($request)){
+                echo("<tr><td>" . $result['nom'] . " ".$result['prenom']."</td>");
+                if(!empty($result['jour'])){
+                    echo("<td>" . $result['jour'] . "</td>");
+                }
+                else echo("<td>" . $result['date'] . "</td>");
+
+                echo("<td>" . $result['heure_debut'] . "</td>");
+                echo("<td>" . $result['heure_fin'] . "</td>");
+
+                echo("<td>
+                        <form method='post' action='board_parent.php'>
+                        <input type='hidden' name='num_resa' value='".$result['num_resa']."' >
+                        <select name='heure_debut' class='form-control '>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                      </td>");
+                echo("<td><input type='text' name='commentaire'></td> ");
+                echo("<td><input class='btn btn primary' type='submit' name='eval' value='Évaluer la garde'></td></form></tr>");
+
+            }
+            echo("</tbody> </table>");
+        }
+        ?>
+    </div>
+
+
+    <?php
+    if (isset($_POST['type'])) {
+        if ($_POST['type'] == 'recu') {
+            $resa = "INSERT INTO RESERVATIONS(type_resa, idParents, idNounou, heure_debut, heure_fin, jour) 
+                        VALUES ('" . $_POST['type'] . "', '" . $_POST['idParents'] . "', '" . $_POST['idNounou'] . "'
+                        , '" . $_POST['heure_debut'] . "', '" . $_POST['heure_fin'] . "', '" . $_POST['jour'] . "')";
+            if ($result = mysqli_query($bdd, $resa)) {
+                echo("<div class='alert alert-success' role='alert'>
+                        Votre réservation a été correctement effectuée
+                    </div>");
+            }
+        } elseif ($_POST['type'] == 'ponctuelle') {
+            $resa = "INSERT INTO RESERVATIONS(type_resa, idParents, idNounou, heure_debut, heure_fin, date) 
+                        VALUES ('" . $_POST['type'] . "', '" . $_POST['idParents'] . "', '" . $_POST['idNounou'] . "'
+                        , '" . $_POST['heure_debut'] . "', '" . $_POST['heure_fin'] . "', '" . $_POST['date'] . "')";
+            if ($result = mysqli_query($bdd, $resa)) {
+                echo("<div class='alert alert-success' role='alert'>
+                        Votre réservation a été correctement effectuée
+                    </div>");
+            }
+        } elseif ($_POST['type'] == 'etrangere') {
+            $resa = "INSERT INTO RESERVATIONS(type_resa, idParents, idNounou, heure_debut, heure_fin, jour) 
+                        VALUES ('" . $_POST['type'] . "', '" . $_POST['idParents'] . "', '" . $_POST['idNounou'] . "'
+                        , '" . $_POST['heure_debut'] . "', '" . $_POST['heure_fin'] . "', '" . $_POST['jour'] . "')";
+            if ($result = mysqli_query($bdd, $resa)) {
+                echo("<div class='alert alert-success' role='alert'>
+                        Votre réservation a été correctement effectuée
+                    </div>");
+            }
+        }
+    }
+
+    ?>
+
+    <div class="visible">
+        <?php
+        if (isset($_POST)) {
+            if (isset($_POST['ponctu'])) {
+                $request = "SELECT n.idNounou 
+                            FROM NOUNOU as n, PARENTS as p, DISPONIBILITES as d, UTILISATEURS as u1, UTILISATEURS as u2 
+                            WHERE d.date = '" . $_POST['date'] . "' 
+                            AND  u1.id_utilisateur = ".$_SESSION['id']." 
+                            AND u2.id_utilisateur = n.idNounou 
+                            AND u1.ville = u2.ville 
+                            AND d.heure_debut <= " . $_POST['heure_debut'] . " 
+                            AND d.heure_fin >= " . $_POST['heure_fin'] . "; ";
+                echo("<h2>$request</h2>");
+                $result = mysqli_query($bdd, $request);
+
+
+                if (mysqli_num_rows($result) >= 1) {
+                    echo("<h2 class='py-4'> Choisissez la nounou qui vous convient :</h2>");
+
+                    while ($nounou = mysqli_fetch_array($result)) {
+
+                        echo("<div class='container' >
+                            <img class='float-right w-25' src=''../img/" . $nounou['lien_photo'] . "' alt='Card image cap'>
+                            <div>
+                                <h5>" . $nounou['prenom'] . " " . $nounou['nom'] . "</h5>
+                                <ul>
+                                    <li>Expérience : " . $nounou['annees_experience'] . " ans</li>
+                                    <li>Age : " . $nounou['age'] . " ans</li>
+                                    <li>Présentation : " . $nounou['presentation'] . "</li>
+                                </ul>
+                                <br><br><br><br>");
+
+                        echo("<form class='form' method='post' action='board_parent.php'>
+                                <input type='hidden' class='form-control' name='type' value='ponctuelle'>
+                                <input type='hidden' class='form-control' name='idParents' value='".$_SESSION['id']."' >
+                                <input type='hidden' class='form-control' name='idNounou' value='".$nounou['idNounou']."' >
+                                <input type='hidden' class='form-control' name='date' value='".$_POST['date']."' >
+                                <input type='hidden' class='form-control' name='heure_debut' value='".$_POST['heure_debut']."'>
+                                <input type='hidden' class='form-control' name='heure_fin' value='".$_POST['heure_fin']."'>
+                                <input type='submit' class='btn btn-primary'  value='Réserver'>
+                            </form>");
+                    }
+                } else echo("<h2> Nous sommes désolé, aucune nounou n'est disponible à cet horaire.</h2>");
+
+
+
+
+            } elseif (isset($_POST['recu'])) {
+                $request = "SELECT DISTINCT n.idNounou, u2.nom, u2.prenom, n.lien_photo, n.presentation, n.annees_experience, n.age
+                            FROM NOUNOU as n, PARENTS as p, DISPONIBILITES as d, UTILISATEURS as u1, UTILISATEURS as u2 
+                            WHERE u1.id_utilisateur = ".$_SESSION['id']." 
+                            AND u2.id_utilisateur = n.idNounou 
+                            AND d.idNounou = n.idNounou
+                            AND u1.ville = u2.ville 
+                            AND d.recurrence = 1 
+                            AND d.jour = '" . $_POST['jour'] . "' 
+                            AND d.heure_debut <= " . $_POST['heure_debut'] . " 
+                            AND d.heure_fin >= " . $_POST['heure_fin'] . "; ";
+                $result = mysqli_query($bdd, $request);
+
+                if (mysqli_num_rows($result) >= 1) {
+                    echo("<h2 class='py-4'> Choisissez la nounou qui vous convient :</h2>");
+
+                    while ($nounou = mysqli_fetch_array($result)) {
+
+                        echo("<div class='container' >
+                            <img class='float-right w-25' src='../img/" . $nounou['lien_photo'] . "' alt='Card image cap'>
+                            <div>
+                                <h5>" . $nounou['prenom'] . " " . $nounou['nom'] . "</h5>
+                                <ul>
+                                    <li>Expérience : " . $nounou['annees_experience'] . " ans</li>
+                                    <li>Age : " . $nounou['age'] . " ans</li>
+                                    <li>Présentation : " . $nounou['presentation'] . "</li>
+                                </ul>
+                                <br><br><br><br>");
+
+                        echo("<form class='form' method='post' action='board_parent.php'>
+                                <input type='hidden' class='form-control' name='type' value='recu'>
+                                <input type='hidden' class='form-control' name='idParents' value='".$_SESSION['id']."' >
+                                <input type='hidden' class='form-control' name='idNounou' value='".$nounou['idNounou']."' >
+                                <input type='hidden' class='form-control' name='jour' value='".$_POST['jour']."' >
+                                <input type='hidden' class='form-control' name='heure_debut' value='".$_POST['heure_debut']."'>
+                                <input type='hidden' class='form-control' name='heure_fin' value='".$_POST['heure_fin']."'>
+                                <input type='submit' class='btn btn-primary'  value='Réserver'>
+                            </form>");
+
+                    }
+                }
+                else
+                    echo("<h2> Nous sommes désolé, aucune nounou n'est disponible à cet horaire.</h2>");
+
+
+
+            } elseif (isset($_POST['etranger'])){
+                $request = "SELECT DISTINCT n.idNounou, n.lien_photo, n.presentation, n.annees_experience, n.age, u2.nom, u2.prenom 
+                            FROM NOUNOU as n, DISPONIBILITES as d, UTILISATEURS as u1, UTILISATEURS as u2, LANGUES as l
+                            WHERE u1.id_utilisateur = ".$_SESSION['id']." 
+                            AND u2.id_utilisateur = n.idNounou 
+                            AND u1.ville = u2.ville 
+                            AND d.recurrence = 1 
+                            AND l.langue = '". $_POST['langue'] ."'
+                            AND l.idNounou = n.idNounou;";
+
+                $result = mysqli_query($bdd, $request);
+
+                if (mysqli_num_rows($result) >= 1) {
+                    echo("<h2 class='py-4'> Choisissez la nounou qui vous convient :</h2>");
+                while($nounou = mysqli_fetch_array($result)){
+
+                    echo("<div class='container' >
+                            <img class='float-right w-25' src=''../img/".$nounou['lien_photo']."' alt='image nounou'>
+                            <div>
+                                <h5>" . $nounou['prenom'] . " " . $nounou['nom'] . "</h5>
+                                <ul>
+                                    <li>Expérience : " . $nounou['annees_experience'] . " ans</li>
+                                    <li>Age : " . $nounou['age'] . " ans</li>
+                                    <li>Présentation : " . $nounou['presentation'] . "</li>
+                                </ul>
+                                <br><br><br><br>
+                                <p class='lead'>Disponibilités : </p>");
+
+                    echo("<table class='table'>
+                                    <thead>
+                                    <tr>
+                                        <th scope='col'>Jour</th>
+                                        <th scope='col'>Heure de début</th>
+                                        <th scope='col'>Heure de Fin</th>
+                                        <th scope='col'>Réservation</th>
+                                        ");
+
+                    $request = "SELECT  n.idNounou, d.heure_debut, d.heure_fin, d.jour 
+                            FROM NOUNOU as n, DISPONIBILITES as d, UTILISATEURS as u1, UTILISATEURS as u2, LANGUES as l
+                            WHERE u1.id_utilisateur = ".$_SESSION['id']." 
+                            AND u2.id_utilisateur = n.idNounou 
+                            AND u1.ville = u2.ville 
+                            AND d.recurrence = 1 
+                            AND l.langue = '". $_POST['langue'] ."'
+                            AND l.idNounou = n.idNounou;";
+
+                    $result = mysqli_query($bdd, $request);
+
+                    while($nounou = mysqli_fetch_array($result)){
+                        echo("<tr><td>" . $nounou['jour'] . "</td>");
+                        echo("<td>" . $nounou['heure_debut'] . "</td>");
+                        echo("<td>" . $nounou['heure_fin'] . "</td>");
+                        echo("<td>
+
+                                <form class='form' method='post' action='board_parent.php'>
+                                    <input type='hidden' class='form-control' name='type' value='etrangere'>
+                                    <input type='hidden' class='form-control' name='idParents' value='".$_SESSION['id']."' >
+                                    <input type='hidden' class='form-control' name='idNounou' value='".$nounou['idNounou']."' >
+                                    <input type='hidden' class='form-control' name='jour' value='".$nounou['jour']."' >
+                                    <input type='hidden' class='form-control' name='heure_debut' value='".$nounou['heure_debut']."'>
+                                    <input type='hidden' class='form-control' name='heure_fin' value='".$nounou['heure_fin']."'>
+                                    <input type='submit' class='btn btn-primary'  value='Réserver'>
+                                </form>
+                              </td></tr>");
+                    }
+                    echo("</tbody>
+                                    </table>");
+
+                }
+                echo("</div>
+                                    </div>");
+
+                    }
+
+                }
+
+            $_POST = array();
+
+
+
+}
+
+
+        ?>
+    </div>
+
+
+
     <div id="garde-ponctuelle" class="hidden">
 
         <h2 class="lead">Demande de garde ponctuelle</h2>
@@ -70,30 +341,59 @@ include '../php/config.php';
 
         <form method="post" action="board_parent.php">
             <div class="form-group">
-                <label for="début">Je recherche une nounou du :</label><br>
-                <input type="date" max="2020-31-31" min="2018-01-12" name="datedebut"><br>
+                <label for="début">Je recherche une nounou le :</label><br>
+                <input type="date" max="2020-31-31" min="2018-01-12" name="date" class="form-control"><br>
             </div>
-            <div class="form-group">
+            <div class="form-group row">
 
-                <label for="jour">Heure :</label><br>
-                <input type="number" min=1 max="24" class="form-control" name="heuredebut" placeholder="">
-            </div>
 
-            <div class="form-group">
-                <label for="fin">Jusqu'au :</label><br>
-                <input type="date" max="2020-31-31" min="2018-01-12" name="datefin"><br>
-            </div>
-            <div class="form-group">
-                <label for="horaire">Heure :</label>
-                <input type="number" min=1 max="24" class="form-control" name="heurefin" placeholder="">
-            </div>
+                <div class="form-group col-md-5 ">
+                    <label for="jour">À partir de :</label><br>
+                    <select name="heure_debut" class="form-control ">
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="ville">Veuillez entrer le code postal de votre ville :</label>
-                <input type="text" class="form-control" value="Exemple :  92250">
-            </div>
 
-            <input type="submit" value="Rechercher une nounou">
+                <div class="form-group col-md-5 offset-md-2">
+                    <label for="horaire">Jusqu'à :</label>
+                    <select name="heure_fin" class="form-control">
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                        <option>21</option>
+                        <option>22</option>
+                        <option>23</option>
+                        <option>24</option>
+                        <option>00</option>
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" name="ponctu" class='btn btn-primary' value="Rechercher une nounou">
 
         </form>
 
@@ -108,6 +408,100 @@ include '../php/config.php';
 
 
         <form method="POST" action="board_parent.php">
+            <fieldset class="form-group form-row">
+                <label for="jour">Cochez le jour de la semaine où vous souhaitez garder vos enfants :</label>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jour" id="gridRadios1" value="lundi">
+                    <label class="form-check-label" for="gridRadios1">
+                        Lundi
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jour" id="gridRadios2" value="mardi">
+                    <label class="form-check-label" for="gridRadios2">
+                        Mardi
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jour" id="gridRadios3" value="mercredi">
+                    <label class="form-check-label" for="gridRadios3">
+                        Mercredi
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jour" id="gridRadios4" value="jeudi">
+                    <label class="form-check-label" for="gridRadios4">
+                        Jeudi
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jour" id="gridRadios5" value="vendredi">
+                    <label class="form-check-label" for="gridRadios5">
+                        Vendredi
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jour" id="gridRadios6" value="samedi">
+                    <label class="form-check-label" for="gridRadios6">
+                        Samedi
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jour" id="gridRadios7" value="dimanche">
+                    <label class="form-check-label" for="gridRadios7">
+                        Dimanche
+                    </label>
+                </div>
+            </fieldset>
+
+            <div class="form-row">
+                <div class="form-group col-md-5 ">
+                    <label for="heure_debut">À Partir de :</label>
+                    <select name="heure_debut" class="form-control ">
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-5 ">
+                    <label for="heure_debut">Jusqu'à :</label>
+                    <select name="heure_fin" class="form-control">
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                        <option>21</option>
+                        <option>22</option>
+                        <option>23</option>
+                        <option>24</option>
+                        <option>00</option>
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                    </select>
+                </div>
+            </div>
+
+            <input type="submit" name="recu" class='btn btn-primary' value="Rechercher une nounou">
 
         </form>
     </div>
@@ -119,101 +513,44 @@ include '../php/config.php';
 
         <!-- INSERER FORMULAIRE DE DEMANDE DE GARDE ETRANGERE -->
 
-        <form method="post" action="board_parent.php">
-            <select name="langueNounou">
-                <?php
-                $requete = "SELECT DISTINCT langue FROM LANGUES;";
-                $resultat = mysqli_query($bdd, $requete);
+        <form class='form ' method="post" action="board_parent.php">
+            <div class="form-group">
+                <select class='form-control' name="langue">
+                    <?php
+                    $requete = "SELECT DISTINCT langue FROM LANGUES;";
+                    $resultat = mysqli_query($bdd, $requete);
 
-                if ($resultat) {
-                    while ($languesnounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
-                        $langueNounou = $languesnounous['langue'];
-                        echo("<option value=$langueNounou>$langueNounou</option>\n");
+                    if ($resultat) {
+                        while ($languesnounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
+                            $langueNounou = $languesnounous['langue'];
+                            echo("<option value=$langueNounou>$langueNounou</option>\n");
+                        }
                     }
-                }
-                ?>
+                    ?>
 
-            </select>
+                </select>
+            </div>
 
-            <input type="submit" value="Rechercher">
+
+            <input class='btn btn-primary' name='etranger' type="submit" value="Rechercher">
         </form>
 
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope='col'>Nom</th>
-                <th scope='col'>Prénom</th>
-                <th scope='col'>Age</th>
-                <th scope='col'>Expérience</th>
-                <th scope='col'>Présentation</th>
-                <th scope='col'>Disponibilités</th>
 
 
-                <?php
 
-                if (isset($_POST['langueNounou'])) {
-                    $langueNounou = $_POST['langueNounou'];
-
-
-                    /*echo("<h2>$langueNounou</h2>");*/
-
-                    $requete = "SELECT u.nom, u.prenom, n.age, n.annees_experience, n.presentation FROM LANGUES l, NOUNOU n, UTILISATEURS u WHERE l.langue=\"$langueNounou\" AND u.id_utilisateur=n.idNounou AND n.idNounou=l.idNounou;";
-                    $resultat = mysqli_query($bdd, $requete);
-
-
-                    if ($resultat) {
-                        echo("<table class=\"table\">
-                <thead>
-                <tr>
-                    <th scope=\"col\">Nom</th>
-                    <th scope=\"col\">Prénom</th>
-                    <th scope=\"col\">Age</th>
-                    <th scope=\"col\">Années d'expérience</th>
-                    <th scope=\"col\">Présentation</th>
-
-                </tr>
-                </thead>
-                <tbody>");
-
-                        while ($listenounouslangue = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
-                            $nom = $listenounouslangue['nom'];
-                            $prenom = $listenounouslangue['prenom'];
-                            $age = $listenounouslangue['age'];
-                            $experience = $listenounouslangue['annees_experience'];
-                            $presentation = $listenounouslangue['presentation'];
-
-                            echo("<tr><td>" . $nom . "</td>");
-                            echo("<td>" . $prenom . "</td>");
-                            echo("<td>" . $age . "</td>");
-                            echo("<td>" . $experience . "</td>");
-                            echo("<td>" . $presentation . "</td>");
-                            echo("<td><button type=\"button\" class=\"btn btn-secondary\">Disponibilités</button></td></tr>");
-
-                        }
-                    }
-
-
-                }
-
-                ?>
-
-            </tbody>
-        </table>
     </div>
 
-</div>
+    <script src="../js/affiche.js"></script>
 
-<script src="../js/affiche.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 </body>
 </html>

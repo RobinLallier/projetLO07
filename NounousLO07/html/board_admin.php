@@ -7,26 +7,31 @@ if ($_SESSION['categorie'] !== 'admin') {
     header("Location: http://localhost:8888/index.html");
 }
 //Gestion des candidatures
-if (isset($_POST['accepter'])) {
-    $request = "UPDATE `NOUNOU` SET `candidature` = '0' WHERE `NOUNOU`.`idNounou` = " . key($_POST['accepter']) . ";";
-    $result = mysqli_query($bdd, $request);
+if(isset($_POST)){
+    if (isset($_POST['accepter'])) {
+        $request = "UPDATE `NOUNOU` SET `candidature` = '0' WHERE `NOUNOU`.`idNounou` = " . key($_POST['accepter']) . ";";
+        $result = mysqli_query($bdd, $request);
 
-} elseif (isset($_POST['refuser'])) {
-    $request = "DELETE FROM `NOUNOU` WHERE `NOUNOU`.`idNounou` =" . key($_POST['refuser']) . ";";
-    $result = mysqli_query($bdd, $request);
-    $request = "DELETE FROM `LANGUES` WHERE `LANGUES`.`idNounou` =" . key($_POST['refuser']) . ";";
-    $result = mysqli_query($bdd, $request);
-    $request = "DELETE FROM `UTILISATEUR` WHERE `UTILISATEUR`.`id_utilisateur` =" . key($_POST['refuser']) . ";";
-    $result = mysqli_query($bdd, $request);
+    } elseif (isset($_POST['refuser'])) {
+        $request = "DELETE FROM `NOUNOU` WHERE `NOUNOU`.`idNounou` =" . key($_POST['refuser']) . ";";
+        $result = mysqli_query($bdd, $request);
+        $request = "DELETE FROM `LANGUES` WHERE `LANGUES`.`idNounou` =" . key($_POST['refuser']) . ";";
+        $result = mysqli_query($bdd, $request);
+        $request = "DELETE FROM `UTILISATEUR` WHERE `UTILISATEUR`.`id_utilisateur` =" . key($_POST['refuser']) . ";";
+        $result = mysqli_query($bdd, $request);
+    }
+
+    if(isset($_POST['bloquer'])){
+        $request = "UPDATE `NOUNOU` SET `blocage` = '1' WHERE `NOUNOU`.`idNounou` = " . key($_POST['bloquer']) . ";";
+        $result = mysqli_query($bdd, $request);
+    } elseif (isset($_POST['debloquer'])){
+        $request = "UPDATE `NOUNOU` SET `blocage` = '0' WHERE `NOUNOU`.`idNounou` = " . key($_POST['debloquer']) . ";";
+        $result = mysqli_query($bdd, $request);
+    }
+
+    $_POST = array();
 }
 
-if(isset($_POST['bloquer'])){
-    $request = "UPDATE `NOUNOU` SET `blocage` = '1' WHERE `NOUNOU`.`idNounou` = " . key($_POST['bloquer']) . ";";
-    $result = mysqli_query($bdd, $request);
-} elseif (isset($_POST['debloquer'])){
-    $request = "UPDATE `NOUNOU` SET `blocage` = '0' WHERE `NOUNOU`.`idNounou` = " . key($_POST['debloquer']) . ";";
-    $result = mysqli_query($bdd, $request);
-}
 
 ?>
 
@@ -210,7 +215,7 @@ if (isset($_SESSION["nom"]))
                 $i = 0;
 
                 while ($candidaturenounous = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
-                    $id = $candidaturenounous['id_utilisateur'];
+
                     $nom = $candidaturenounous['nom'];
                     $prenom = $candidaturenounous['prenom'];
                     $age = $candidaturenounous['age'];
