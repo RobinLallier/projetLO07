@@ -11,6 +11,7 @@ if(isset($_POST)){
     if (isset($_POST['accepter'])) {
         $request = "UPDATE `NOUNOU` SET `candidature` = '0' WHERE `NOUNOU`.`idNounou` = " . key($_POST['accepter']) . ";";
         $result = mysqli_query($bdd, $request);
+        $_POST = array();
 
     } elseif (isset($_POST['refuser'])) {
         $request = "DELETE FROM `NOUNOU` WHERE `NOUNOU`.`idNounou` =" . key($_POST['refuser']) . ";";
@@ -19,17 +20,22 @@ if(isset($_POST)){
         $result = mysqli_query($bdd, $request);
         $request = "DELETE FROM `UTILISATEUR` WHERE `UTILISATEUR`.`id_utilisateur` =" . key($_POST['refuser']) . ";";
         $result = mysqli_query($bdd, $request);
+        $_POST = array();
     }
 
     if(isset($_POST['bloquer'])){
         $request = "UPDATE `NOUNOU` SET `blocage` = '1' WHERE `NOUNOU`.`idNounou` = " . key($_POST['bloquer']) . ";";
         $result = mysqli_query($bdd, $request);
+
+        $_POST = array();
     } elseif (isset($_POST['debloquer'])){
         $request = "UPDATE `NOUNOU` SET `blocage` = '0' WHERE `NOUNOU`.`idNounou` = " . key($_POST['debloquer']) . ";";
         $result = mysqli_query($bdd, $request);
+
+        $_POST = array();
     }
 
-    $_POST = array();
+
 }
 
 
@@ -39,6 +45,7 @@ if(isset($_POST)){
 
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -47,6 +54,7 @@ if(isset($_POST)){
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body class="container-fluid">
 <header class="text-center container-fluid">
@@ -99,13 +107,13 @@ if (isset($_SESSION["nom"]))
         <br>
         <!-- RECHERCHER NOUNOU-->
         <form class="form row" method="POST" action="board_admin.php">
-            <input class="form-control col-md-9" type="text" name="nomNounou" value="Nom de la nounou">
+            <input class="form-control col-md-9" type="text" name="nomNounou" placeholder="Nom de la nounou">
             <br>
             <input class="btn btn-primary col-md-2 offset-md-1" type="submit" value="Rechercher">
         </form>
 
         <!-- TABLEAU PROFIL NOUNOU -->
-        <div class="container">
+        <div class="container visible">
 
 
             <?php
@@ -115,30 +123,34 @@ if (isset($_SESSION["nom"]))
                 $nom = $_POST['nomNounou'];
                 $requete = "SELECT e.num_resa, e.note, e.commentaire
     FROM EVALUATION e, RESERVATIONS r, UTILISATEURS u 
-    WHERE e.num_resa = r.num_resa AND r.idNounou = u.id_utilisateur AND u.nom =''$nom'';";
+    WHERE e.num_resa = r.num_resa AND r.idNounou = u.id_utilisateur AND u.nom ='".$nom."';";
                 $resultat = mysqli_query($bdd, $requete);
 
-                $requete2 = "SELECT lien_photo
+                $requete2 = "SELECT n.lien_photo, n.presentation
 FROM NOUNOU n, UTILISATEURS u
-WHERE n.idNounou=u.id_utilisateur AND u.nom=''$nom''; ";
-
+WHERE n.idNounou=u.id_utilisateur AND u.nom='$nom'; ";
                 $resultatphoto = mysqli_fetch_row(mysqli_query($bdd, $requete2));
+
                 echo("<div class='card' style='width: 18rem;'>
-                        <img class='card-img-top' src=''../img/".$resultatphoto[0]."' alt='Card image cap'>
+                        <img class='card-img-top' src='../img/" . $resultatphoto[0] . "' alt='Card image cap'>
                               <div class='card-body'>
                                  <h5 class='card-title'>" . $nom . "</h5>
-                                 <p class='card-text'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                               </div>
-                                    <ul class='list-group list-group-flush'>");
+                                 <p class='card-text'>".$resultatphoto[1]."</p>");
+
+
 
                 if ($resultat) {
+
                     while ($nounou = mysqli_fetch_array($resultat, MYSQLI_ASSOC)) {
                         $resaNounou = $nounou['num_resa'];
                         $noteNounou = $nounou['note'];
                         $commentaireNounou = $nounou['commentaire'];
-                        echo("<li class='list-group-item\>" . $resaNounou . "</li>");
-                        echo("<li class='list-group-item\>" . $noteNounou . "</li>");
-                        echo("<li class='list-group-item\>" . $commentaireNounou . "</li>");
+
+
+
+                        echo("<li class='list-group-item'>Réservation n° :" . $resaNounou . "</li>");
+                        echo("<li class='list-group-item'>Note obtenue :" . $noteNounou . " <i class=\"material-icons\">star</i></li>");
+                        echo("<li class='list-group-item'>Commentaire : " . $commentaireNounou . "</li>");
                         echo("</ul></div>");
 
 

@@ -1,51 +1,17 @@
 # projetLO07
 
-## TODO List
-
-###TicketsList
-    Header redirect sur l'accès involontaire vers une page interdite (board-admin.php)
-    
-   
-    -Insérer Parent
-    -Insérer Enfants
-    -Insérer Recommandation
-    
-    
-
-### Requêtes SQL à faire
-
--Reservation associées à un parent.
-
--Chiffre d'affaire du site sur une période
-Le salaire des nounous est de 7 € par heure commencée pour un enfant et avec 4 € supplémentaires par heure
-pour chaque enfant supplémentaire :
-● 3h15 avec un enfant = 4h * 7 = 28 €
-● 2h avec 3 enfant = 2 * (7 + 4 + 4) = 30 €
-
-#Il faut que le trigger fonctionne
-#Pour le chiffre d'affaire il faudra marquer :
-
-<?php
-$chiffreaffaire ="SELECT SUM(revenus) FROM NOUNOU;";
-$resultat = mysqli_query($bdd, $chiffreaffaire);
-
-if($resultat){
-	echo("Votre chiffre d'affaire s'élève à : " .$chiffreaffaire. "€.");
-}
-?>
+## Processus d'installation
+1) Ouvrez MAMP/WAMP et sélectionnez "NounousLO07" comme racine
+2) Lancez les serveurs, ouvrez PHPMyAdmin sur la page d'acceuil de MAMP/WAMP
+3) Créez une nouvelle bdd, sélectionnez "Import"
+4) Importez le fichier bdd.sql présent dans NounousLO07
+5) Lancez le site depuis la page d'accueil
 
 
--Afficher toutes les disponibilités associées à une nounou. 
---> Cliquer sur voir disponibilités 
-#Je sèche (associer un tel bouton à la nounou de la ligne)
+## Jeu de données et authentification
+- Nounou : mangue / mangue
+- Parent : litchi / litchi
+-Admin : jujube / jujube
 
 
-
--Afficher les nounous disponibles en fonction d'un jour, d'une heure de début et d'une heure de fin et d'un code postal (potentiellement récurrent )
-#Pour l'instant j'ai fait le formulaire garde ponctuelle (de tel jour à telle heure... dans telle ville)
-
-
-### BDD SQL
-
-
-
+NOTE : Les fonctionnalités d'ajout dans la base de données sont susceptible de ne pas fonctionner, nous nous en excusons.

@@ -1,6 +1,5 @@
 <?php
 include 'config.php';
-
 //Vérification de la validité des informations entrées
 if( isset($_POST["login"]) && isset($_POST["password"])) {
 

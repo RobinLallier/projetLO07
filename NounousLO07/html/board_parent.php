@@ -14,6 +14,7 @@ include '../php/config.php';
 ?>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -23,7 +24,7 @@ include '../php/config.php';
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/main.css">
 </head>
-<body class="container-fluid">
+<body>
 <header class="text-center container-fluid">
     <a href="../index.html">
         <img src="../img/rattle.png" class="float-left logo" alt="hochet">
@@ -31,7 +32,7 @@ include '../php/config.php';
     <h1 class="titreaccueil">maNounou.com</h1>
     <h2 class="lead">Le meilleur site de recherche de nounous</h2>
 </header>
-<div class="jumbotron">
+<div class="jumbotron container">
     <nav class="navbar navbar-expand-lg navbar-light">
         <span class="navbar-brand">Tableau de Bord</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
@@ -92,9 +93,10 @@ include '../php/config.php';
         <?php
 
         $request = "SELECT DISTINCT u.nom, u.prenom, r.heure_debut, r.heure_fin, r.type_resa, r.jour, r.date, r.num_resa
-                    FROM RESERVATIONS as r, PARENTS as p, UTILISATEURS as u
+                    FROM RESERVATIONS as r, PARENTS as p, UTILISATEURS as u, EVALUATION as e
                     WHERE r.idParents = '".$_SESSION['id']."' 
-                    AND u.id_utilisateur = r.idNounou";
+                    AND u.id_utilisateur = r.idNounou
+                    AND e.num_resa <> r.num_resa";
         $request = mysqli_query($bdd, $request);
         if( mysqli_num_rows($request) >= 1){
 
@@ -561,11 +563,9 @@ include '../php/config.php';
             <input class='btn btn-primary' name='etranger' type="submit" value="Rechercher">
         </form>
 
-
-
-
-
     </div>
+
+</div>
 
     <script src="../js/affiche.js"></script>
 

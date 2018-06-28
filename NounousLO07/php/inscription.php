@@ -7,6 +7,8 @@ include "php_class/Langue.php";
 include "php_class/Parent.php";
 include "php_class/Enfant.php";
 
+
+
 //Hachage du mot de passe
 $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
@@ -49,7 +51,7 @@ elseif (isset($_POST["informations"])) {
         $j = new Enfant($user->getIdUtilisateur(), $enfants["nom"][$i], $enfants["date_naissance"][$i], $enfants["restrictions_alim"][$i]);
         $j->addToDatabase($bdd);
     }
-
+    header("Location: http://localhost:8888/html/login.php");
 } else {
     echo("<h2>Votre formulaire a été mal rempli. Veuillez recommencer SVP.</h2>");
 }
